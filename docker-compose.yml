@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  nginx-mvc-blog:
+    container_name: nginx-mvc-blog
+    image: nginx:1.22
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/
+      # конфигурация nginx
+      - ./.docker/config/nginx/:/etc/nginx/conf.d/
+      # ssl
+      # - ./.docker/config/nginx/ssl/:/etc/nginx/ssl/
+      # логи
+      - ./.docker/logs/nginx:/var/log/nginx/
+    networks:
+      - web-network-mvc-blog
+
+  php-mvc-blog:
+    build:
+      context: .docker
+    container_name: php-mvc-blog
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www/
+    networks:
+      - web-network-mvc-blog
+
+#  mysql-mvc-blog:
+#    container_name: mysql-mvc-blog
+#    image: mysql:latest
+#    ports:
+#      - "${MYSQL_PORT}:3306"
+#    volumes:
+#      # логи
+#      - ./logs/mysql/:/var/logs/mysql
+#      # храним базу локально
+#      - ./database/mysql:/var/lib/mysql
+#    security_opt:
+#      - seccomp:unconfined
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${DATABASE_NAME}
+#      MYSQL_USER: ${MYSQL_USER}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    networks:
+#      - web-network-mvc-blog
+
+#  redis-mvc-blog:
+#    container_name: redis-mvc-blog
+#    image: redis:7.0.5
+#    ports:
+#      - "6380:6379"
+#    networks:
+#      - web-network-mvc-blog
+
+networks:
+  web-network-mvc-blog:
+    driver: bridge

@@ -1,0 +1,14 @@
+{
+    "name": "mvc-blog/app",
+    "autoload": {
+        "psr-4": {
+            "MvcBlog\\App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lubov"
+        }
+    ],
+    "require": {}
+}
