@@ -1,14 +1,8 @@
 <?php
 
-$method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
+use MvcBlog\App\Routing;
 
-$uri = explode('?', $uri)[0];
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$routing = require_once '../routes/web.php';
-
-if ($method === 'GET') {
-    $routing['GET'][$uri];
-} elseif ($method === 'POST') {
-    $routing['POST'][$uri];
-}
+$routing = new Routing();
+$routing->run();
