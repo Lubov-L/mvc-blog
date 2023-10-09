@@ -29,25 +29,25 @@ services:
     networks:
       - web-network-mvc-blog
 
-#  mysql-mvc-blog:
-#    container_name: mysql-mvc-blog
-#    image: mysql:latest
-#    ports:
-#      - "${MYSQL_PORT}:3306"
-#    volumes:
-#      # логи
-#      - ./logs/mysql/:/var/logs/mysql
-#      # храним базу локально
-#      - ./database/mysql:/var/lib/mysql
-#    security_opt:
-#      - seccomp:unconfined
-#    environment:
-#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      MYSQL_DATABASE: ${DATABASE_NAME}
-#      MYSQL_USER: ${MYSQL_USER}
-#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-#    networks:
-#      - web-network-mvc-blog
+  mysql-mvc-blog:
+    container_name: mysql-mvc-blog
+    image: mysql:latest
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      # логи
+      - ./logs/mysql/:/var/logs/mysql
+      # храним базу локально
+      - ./.docker/database/mysql:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - web-network-mvc-blog
 
 #  redis-mvc-blog:
 #    container_name: redis-mvc-blog
