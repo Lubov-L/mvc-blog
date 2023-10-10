@@ -10,5 +10,6 @@ return [
     ],
     'POST' => [
         '/' => [MainController::class, 'test'],
+        '/create-user' => [MainController::class, 'createUser'],
     ]
 ];

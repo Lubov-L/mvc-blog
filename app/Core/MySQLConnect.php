@@ -2,19 +2,21 @@
 
 namespace MvcBlog\App\Core;
 
+
+use Exception;
+
 class MySQLConnect
 {
     protected static ?MySQLConnect $instance = null;
 
+    private $connect = null;
+
     private function __construct()
     {
-        $link = mysqli_connect("mysql-mvc-blog", "root", "local");
+        $this->connect = mysqli_connect("mysql-mvc-blog", "root", "local");
 
-        if (!$link){
+        if (!$this->connect) {
             print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
-        }
-        else {
-            print("Соединение установлено успешно");
         }
     }
 
@@ -30,8 +32,19 @@ class MySQLConnect
         return self::$instance;
     }
 
-    public function register()
+    /**
+     * @throws Exception
+     */
+    public function registration($name, $phone, $email, $password): bool
     {
-        // запрос в бд на запись пользователя в таблицу users
+        $query = 'INSERT INTO db.users (name, phone, email, `password`) 
+                    VALUES (?, ?, ?, ?)';
+        $statement = $this->connect->prepare($query);
+
+        $statement->bind_param('ssss', $name, $phone, $email, $password);
+
+        $result = $statement->execute();
+
+        return $result;
     }
 }

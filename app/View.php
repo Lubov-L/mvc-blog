@@ -4,7 +4,7 @@ namespace MvcBlog\App;
 
 class View
 {
-    public static function view(string $name): void
+    public static function view(string $name, array $params = []): void
     {
         $path = __DIR__ . '/../views/';
 
