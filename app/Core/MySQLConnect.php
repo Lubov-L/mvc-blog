@@ -2,21 +2,22 @@
 
 namespace MvcBlog\App\Core;
 
-
 use Exception;
+use PDO;
+use PDOException;
 
 class MySQLConnect
 {
     protected static ?MySQLConnect $instance = null;
 
-    private $connect = null;
+    private ?PDO $pdo = null;
 
     private function __construct()
     {
-        $this->connect = mysqli_connect("mysql-mvc-blog", "root", "local");
-
-        if (!$this->connect) {
-            print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
+        try {
+            $this->pdo = new PDO("mysql:host=mysql-mvc-blog;dbname=db", "root", "local");
+        } catch (PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
         }
     }
 
@@ -35,16 +36,20 @@ class MySQLConnect
     /**
      * @throws Exception
      */
-    public function registration($name, $phone, $email, $password): bool
+    public function registration($name, $phone, $email, $password): void
     {
-        $query = 'INSERT INTO db.users (name, phone, email, `password`) 
-                    VALUES (?, ?, ?, ?)';
-        $statement = $this->connect->prepare($query);
+        $query = $this->pdo->prepare('INSERT INTO users (name, phone, email, `password`) 
+                    VALUES (:name, :phone, :email, :password)');
 
-        $statement->bind_param('ssss', $name, $phone, $email, $password);
-
-        $result = $statement->execute();
-
-        return $result;
+        $query->execute(['name'=> $name, 'phone' => $phone, 'email' => $email, 'password' => $password]);
     }
+
+    public function getUser($email)
+    {
+        $stmt = $this->pdo->prepare('SELECT password FROM users WHERE email = :email');
+        $stmt->execute(['email' => $email]);
+
+        return $stmt->fetch();
+    }
+
 }

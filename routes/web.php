@@ -11,5 +11,6 @@ return [
     'POST' => [
         '/' => [MainController::class, 'test'],
         '/create-user' => [MainController::class, 'createUser'],
+        '/login' => [MainController::class, 'auth']
     ]
 ];
