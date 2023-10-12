@@ -10,19 +10,31 @@ class MainController
 {
     public static function index(): void
     {
-        View::view('app');
+        View::view('app', ['title' => 'Blog']);
     }
 
     public static function login(): void
     {
-        View::view('login');
+        View::view('login', ['title' => 'Login']);
     }
 
     public static function registration(): void
     {
-        View::view('registration');
+        View::view('registration', ['title' => 'Registration']);
     }
 
+    public static function logout(): void
+    {
+        $_SESSION = [];
+        session_destroy();
+        header('Location: /');
+        die();
+    }
+
+
+    /**
+     * Регистрация пользователя
+     */
     public static function createUser(): void
     {
         try {
@@ -31,19 +43,25 @@ class MainController
                 ->registration($user->getName(), $user->getPhone(), $user->getEmail(), $user->getPassword());
         } catch (\Exception $exception) {
             View::view('errors', ['error' => 'Error creating user']);
-            var_dump($exception->getMessage());
             die();
         }
-
-        View::view('app');
+        // Редирект на страницу login
+        header('Location: /login');
+        die();
     }
 
+    /**
+     * Авторизация пользователя
+     */
     public static function auth()
     {
         $user = MySQLConnect::getInstance()->getUser($_POST['email']);
 
         if (is_array($user) && password_verify($_POST['password'], $user['password'])) {
-            View::view('app');
+            // Запись id авторизованного пользователя в сессию
+            $_SESSION['userId'] = $user['id'];
+            // Редирект на главную страницу
+            header('Location: /');
             die();
         }
         View::view('errors', ['error' => 'Invalid password or login']);

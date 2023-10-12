@@ -46,7 +46,7 @@ class MySQLConnect
 
     public function getUser($email)
     {
-        $stmt = $this->pdo->prepare('SELECT password FROM users WHERE email = :email');
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->execute(['email' => $email]);
 
         return $stmt->fetch();
