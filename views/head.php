@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Autour+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
 
-    <title>Blog</title>
+    <title><?= $params['title'] ?? 'main'; ?></title>
 
 </head>
 <body>
