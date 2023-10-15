@@ -1,6 +1,6 @@
-CREATE TABLE user_roles
+CREATE TABLE IF NOT EXISTS user_roles
 (
-    id      int             NOT NULL AUTO_INCREMENT,
+    id      BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     user_id BIGINT UNSIGNED NOT NULL,
     role_id BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
