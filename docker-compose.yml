@@ -4,7 +4,7 @@ services:
   nginx-mvc-blog:
     container_name: nginx-mvc-blog
     image: nginx:1.22
-    restart: unless-stopped
+    restart: "no"
     ports:
       - "80:80"
     volumes:
@@ -22,7 +22,7 @@ services:
     build:
       context: .docker
     container_name: php-mvc-blog
-    restart: unless-stopped
+    restart: "no"
     working_dir: /var/www
     volumes:
       - .:/var/www/
@@ -32,6 +32,7 @@ services:
   mysql-mvc-blog:
     container_name: mysql-mvc-blog
     image: mysql:latest
+    restart: "no"
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
