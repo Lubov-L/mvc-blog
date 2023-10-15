@@ -26,5 +26,7 @@ redis-logs:
 	docker compose logs redis-mvc-blog
 vendor:
 	docker compose exec php-mvc-blog bash -c "composer install"
-key-generate:
-	docker compose exec php-mvc-blog bash -c "php artisan key:generate"
+seed:
+	docker compose exec php-mvc-blog bash -c "php ./database/Run.php seed $(name)"
+migrate:
+	docker compose exec php-mvc-blog bash -c "php ./database/Run.php migrate"
