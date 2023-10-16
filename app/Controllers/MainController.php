@@ -3,7 +3,8 @@
 namespace MvcBlog\App\Controllers;
 
 use MvcBlog\App\Core\MySQLConnect;
-use MvcBlog\App\Entities\User;
+use MvcBlog\App\Entities\UserEntity;
+use MvcBlog\App\Models\UserModel;
 use MvcBlog\App\View;
 
 class MainController
@@ -31,6 +32,16 @@ class MainController
         die();
     }
 
+    public static function admin(): void
+    {
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+            View::view('admin', ['title' => 'Admin panel']);
+            die();
+        }
+        View::view('notFound', ['title' => 'Error']);
+        die();
+    }
+
 
     /**
      * Регистрация пользователя
@@ -38,9 +49,9 @@ class MainController
     public static function createUser(): void
     {
         try {
-            $user = new User();
-            MySQLConnect::getInstance()
-                ->registration($user->getName(), $user->getPhone(), $user->getEmail(), $user->getPassword());
+            $userEntity = new UserEntity();
+            $user = new UserModel();
+            $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $userEntity->getPassword());
         } catch (\Exception $exception) {
             View::view('errors', ['error' => 'Error creating user']);
             die();
@@ -53,13 +64,18 @@ class MainController
     /**
      * Авторизация пользователя
      */
-    public static function auth()
+    public static function auth(): void
     {
-        $user = MySQLConnect::getInstance()->getUser($_POST['email']);
+        $userEntity = new UserEntity();
+        $userModel = new UserModel();
+        $user = $userModel->getUser($userEntity->getEmail());
 
-        if (is_array($user) && password_verify($_POST['password'], $user['password'])) {
+        if (password_verify($userEntity->getPassword(), $user->getPassword())) {
+
             // Запись id авторизованного пользователя в сессию
-            $_SESSION['userId'] = $user['id'];
+            $_SESSION['userId'] = $user->getId();
+            $_SESSION['role'] = $userModel->getRoleName($user->getId());
+
             // Редирект на главную страницу
             header('Location: /');
             die();
