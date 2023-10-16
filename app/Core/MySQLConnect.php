@@ -2,7 +2,6 @@
 
 namespace MvcBlog\App\Core;
 
-use Exception;
 use PDO;
 use PDOException;
 
@@ -10,7 +9,7 @@ class MySQLConnect
 {
     protected static ?MySQLConnect $instance = null;
 
-    private ?PDO $pdo = null;
+    protected ?PDO $pdo = null;
 
     private function __construct()
     {
@@ -33,23 +32,8 @@ class MySQLConnect
         return self::$instance;
     }
 
-    /**
-     * @throws Exception
-     */
-    public function registration($name, $phone, $email, $password): void
+    public function connect(): ?PDO
     {
-        $query = $this->pdo->prepare('INSERT INTO users (name, phone, email, `password`) 
-                    VALUES (:name, :phone, :email, :password)');
-
-        $query->execute(['name'=> $name, 'phone' => $phone, 'email' => $email, 'password' => $password]);
+        return $this->pdo;
     }
-
-    public function getUser($email)
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
-        $stmt->execute(['email' => $email]);
-
-        return $stmt->fetch();
-    }
-
 }
