@@ -8,6 +8,7 @@ return [
         '/login' => [MainController::class, 'login'],
         '/registration' => [MainController::class, 'registration'],
         '/logout' => [MainController::class, 'logout'],
+        '/admin' => [MainController::class, 'admin'],
     ],
     'POST' => [
         '/' => [MainController::class, 'test'],
