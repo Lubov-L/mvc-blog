@@ -7,7 +7,7 @@ require_once __DIR__ . '/header.php';
 <form action="/create-user" method="post" class="login__form">
     <p>Registration</p>
     <label>
-        <input type="text" name="name" minlength="2" maxlength="32" pattern="[a-z]{4,8}"
+        <input type="text" name="name" minlength="2" maxlength="32"
                placeholder="Enter your name" required>
     </label>
     <label>
