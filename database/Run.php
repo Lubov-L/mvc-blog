@@ -74,6 +74,11 @@ class Run
     {
         $migrationFolderPath = __DIR__ . '/seeds/';
 
+        $seedPath = "$migrationFolderPath/$name.sql";
+
+        if (empty($name) || !file_exists($seedPath)) {
+            echo "Данного сида не существует  \n";
+        } else {
             // Выполнение seed
             $seedScript = file_get_contents("$migrationFolderPath/$name.sql");
 
@@ -81,6 +86,7 @@ class Run
             $this->pdo->exec($seedScript);
 
             echo "Seed $name выполнен успешно \n";
+        }
     }
 }
 
