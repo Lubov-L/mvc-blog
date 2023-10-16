@@ -2,7 +2,7 @@
 
 namespace MvcBlog\App\Entities;
 
-class User
+class UserEntity
 {
     private int $id;
     private string $name;
@@ -12,14 +12,19 @@ class User
 
     public function __construct(array $data = null)
     {
-        if (!isset($data)) {
+        if (empty($data)) {
             $data = $_POST;
         }
         foreach ($data as $key => $value) {
+            if (is_null($value)) {
+                continue;
+            }
+
             $value = strip_tags($value);
             $value = htmlentities($value, ENT_QUOTES, "UTF-8");
+
             if (property_exists($this, $key)) {
-                if ($key === 'password') {
+                if ($key === 'password' && empty($_POST)) {
                     $this->$key = password_hash($value, PASSWORD_DEFAULT);
                     continue;
                 }
