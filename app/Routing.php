@@ -13,7 +13,11 @@ class Routing
 
         $path = explode('?', $uri)[0] ?? null;
 
-        $routing = require_once '../routes/web.php';
+        if (str_contains($uri, '/api')) {
+            $routing = require_once '../routes/api.php';
+        } else {
+            $routing = require_once '../routes/web.php';
+        }
 
         $class = $routing[$method][$path][0] ?? null;
         $method = $routing[$method][$path][1] ?? null;
