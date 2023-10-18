@@ -25,13 +25,15 @@ form > p, a {
     display: flex;
 }
 
+.header__nav, .line, form, .content, .article > h3 {
+    margin: 0 auto;
+}
+
 .header__nav {
     justify-content: space-between;
     align-items: center;
     height: 100%;
     max-width: 1000px;
-    margin: 0 auto;
-
 }
 
 .nav__link {
@@ -40,7 +42,6 @@ form > p, a {
 
 form {
     width: 100%;
-    margin: 0 auto;
     max-width: 300px;
     flex-direction: column;
     align-items: center;
@@ -96,4 +97,57 @@ button {
 .invalid {
     color: red;
     font-size: 10px;
+}
+
+.content {
+    max-width: 1000px;
+    padding-top: 3%;
+}
+
+.content__block {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.content__panel {
+    padding: 12% 10% 14% 10%;
+}
+
+.content__panel, .article {
+    box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
+}
+
+.content__panel, .content__main {
+    display: flex;
+    flex-direction: column;
+}
+
+.content__main {
+    align-items: center;
+}
+
+.content__panel-link {
+    margin-top: 20px;
+}
+
+.content__panel-link:first-child,
+.content__panel-link:nth-child(3),
+.content__panel-link:nth-child(5) {
+    margin-top: 0;
+}
+
+.article {
+    max-width: 90%;
+    padding: 2%;
+}
+
+.article > h3, .article > p {
+    margin-bottom: 10px;
+    color: rgb(56, 56, 56);
+}
+
+.line {
+    border-bottom: 1px solid #3C8EBC;
+    width: 100%;
+    margin: 30px 0;
 }
