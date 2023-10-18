@@ -19,12 +19,18 @@ class UserModel extends Model
         $query->execute(['name' => $name, 'phone' => $phone, 'email' => $email, 'password' => $password]);
     }
 
-    public function getUser($email): UserEntity
+    public function getUser($email): ?UserEntity
     {
         $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->execute(['email' => $email]);
 
-        return new UserEntity($stmt->fetch(PDO::FETCH_ASSOC));
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result === false) {
+            return null;
+        }
+
+        return new UserEntity($result);
     }
 
     public function getRoleName(int $userId): string

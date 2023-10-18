@@ -24,11 +24,6 @@ class UserEntity
             $value = htmlentities($value, ENT_QUOTES, "UTF-8");
 
             if (property_exists($this, $key)) {
-                if ($key === 'password' && empty($_POST)) {
-                    $this->$key = password_hash($value, PASSWORD_DEFAULT);
-                    continue;
-                }
-
                 $this->$key = $value;
             }
         }

@@ -2,7 +2,6 @@
 
 namespace MvcBlog\App\Controllers;
 
-use MvcBlog\App\Core\MySQLConnect;
 use MvcBlog\App\Entities\UserEntity;
 use MvcBlog\App\Models\UserModel;
 use MvcBlog\App\View;
@@ -51,7 +50,10 @@ class MainController
         try {
             $userEntity = new UserEntity();
             $user = new UserModel();
-            $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $userEntity->getPassword());
+
+            $passwordHash = password_hash($userEntity->getPassword(), PASSWORD_DEFAULT);
+
+            $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $passwordHash);
         } catch (\Exception $exception) {
             View::view('errors', ['error' => 'Error creating user']);
             die();
@@ -70,6 +72,11 @@ class MainController
         $userModel = new UserModel();
         $user = $userModel->getUser($userEntity->getEmail());
 
+        if (is_null($user)) {
+            View::view('errors', ['error' => 'Invalid password or login']);
+            die();
+        }
+
         if (password_verify($userEntity->getPassword(), $user->getPassword())) {
 
             // Запись id авторизованного пользователя в сессию
@@ -80,6 +87,7 @@ class MainController
             header('Location: /');
             die();
         }
+
         View::view('errors', ['error' => 'Invalid password or login']);
     }
 }
