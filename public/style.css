@@ -56,7 +56,7 @@ form > p {
     margin: 20px 0;
 }
 
-input {
+input, .invalid {
     width: 100%;
     padding: 0 10px;
 }
@@ -91,4 +91,9 @@ button {
 
 .hidden {
     display: none;
+}
+
+.invalid {
+    color: red;
+    font-size: 10px;
 }

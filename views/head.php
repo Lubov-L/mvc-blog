@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Autour+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
+
+    <script async src="/validate.js"></script>
 
     <title><?= $params['title'] ?? 'main'; ?></title>
 
