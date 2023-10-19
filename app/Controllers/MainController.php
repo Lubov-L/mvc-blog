@@ -8,19 +8,19 @@ use MvcBlog\App\View;
 
 class MainController
 {
-    public static function index(): void
+    public static function index(): string
     {
-        View::view('app', ['title' => 'Blog']);
+        return View::view('app', ['title' => 'Blog']);
     }
 
-    public static function login(): void
+    public static function login(): string
     {
-        View::view('login', ['title' => 'Login']);
+        return View::view('login', ['title' => 'Login']);
     }
 
-    public static function registration(): void
+    public static function registration(): string
     {
-        View::view('registration', ['title' => 'Registration']);
+        return View::view('registration', ['title' => 'Registration']);
     }
 
     public static function logout(): void
@@ -31,21 +31,20 @@ class MainController
         die();
     }
 
-    public static function admin(): void
+    public static function admin(): string
     {
         if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-            View::view('admin', ['title' => 'Admin panel']);
-            die();
+           return View::view('admin', ['title' => 'Admin panel']);
         }
-        View::view('notFound', ['title' => 'Error']);
-        die();
+
+        return View::view('notFound', ['title' => 'Error']);
     }
 
 
     /**
      * Регистрация пользователя
      */
-    public static function createUser(): void
+    public static function createUser(): string
     {
         try {
             $userEntity = new UserEntity();
@@ -55,8 +54,7 @@ class MainController
 
             $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $passwordHash);
         } catch (\Exception $exception) {
-            View::view('errors', ['error' => 'Error creating user']);
-            die();
+            return View::view('errors', ['error' => 'Error creating user']);
         }
         // Редирект на страницу login
         header('Location: /login');
@@ -66,15 +64,15 @@ class MainController
     /**
      * Авторизация пользователя
      */
-    public static function auth(): void
+    public static function auth(): string
     {
         $userEntity = new UserEntity();
         $userModel = new UserModel();
         $user = $userModel->getUser($userEntity->getEmail());
 
         if (is_null($user)) {
-            View::view('errors', ['error' => 'Invalid password or login']);
-            die();
+           return View::view('errors', ['error' => 'Invalid password or login']);
+
         }
 
         if (password_verify($userEntity->getPassword(), $user->getPassword())) {
@@ -88,6 +86,6 @@ class MainController
             die();
         }
 
-        View::view('errors', ['error' => 'Invalid password or login']);
+        return View::view('errors', ['error' => 'Invalid password or login']);
     }
 }
