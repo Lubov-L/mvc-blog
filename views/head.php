@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Autour+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 
-    <script async src="/js/validate.js"></script>
-
     <title><?= $params['title'] ?? 'main'; ?></title>
 
 </head>

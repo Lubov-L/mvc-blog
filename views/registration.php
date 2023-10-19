@@ -4,6 +4,8 @@ require_once __DIR__ . '/head.php';
 <?php
 require_once __DIR__ . '/header.php';
 ?>
+<script async src="/js/validate.js"></script>
+
 <form action="/create-user" method="post" class="login__form">
     <p>Registration</p>
     <label>
