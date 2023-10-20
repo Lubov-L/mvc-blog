@@ -4,6 +4,8 @@ document.querySelector(".login__form").addEventListener("submit", async function
     let form = document.querySelector(".login__form");
     let formData = new FormData(form);
     let jsonData = {};
+    let error = document.querySelector('.invalid');
+    let unexpectedError = document.querySelector('.unexpected_error');
 
     formData.forEach(function (value, key) {
         jsonData[key] = value;
@@ -28,9 +30,10 @@ document.querySelector(".login__form").addEventListener("submit", async function
                 if (data.success === true) {
                     window.location.href = "/";
                 } else if (data.success === false && data.error) {
-                    console.log("Invalid login or password");
+                    error.classList.remove('hidden');
                 } else {
-                    console.log("An unexpected error occurred");
+                    form.classList.add('hidden');
+                    unexpectedError.classList.remove('hidden');
                 }
             })
         });

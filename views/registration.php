@@ -6,7 +6,7 @@ require_once __DIR__ . '/header.php';
 ?>
 <script async src="/js/validate.js"></script>
 
-<form action="/create-user" method="post" class="login__form">
+<form action="/create-user" method="post" class="signUp__form">
     <p>Registration</p>
     <label>
         <input type="text" name="name" minlength="2" maxlength="32" pattern="[A-Za-z]+"
@@ -16,7 +16,7 @@ require_once __DIR__ . '/header.php';
         <input type="tel" name="phone" pattern="^\+[1-9]\d{10}$" placeholder="Enter your phone">
     </label>
     <label>
-        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="email" name="email" placeholder="Enter your email" pattern="/^[^@]+@[^@].+\.[^@]{2,}$/" required>
     </label>
     <label>
         <input type="password" name="password" placeholder="Create password" required>
