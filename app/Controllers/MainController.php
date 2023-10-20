@@ -34,12 +34,11 @@ class MainController
     public static function admin(): string
     {
         if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-           return View::view('admin', ['title' => 'Admin panel']);
+            return View::view('admin', ['title' => 'Admin panel']);
         }
 
         return View::view('notFound', ['title' => 'Error']);
     }
-
 
     /**
      * Регистрация пользователя
@@ -71,7 +70,7 @@ class MainController
         $user = $userModel->getUser($userEntity->getEmail());
 
         if (is_null($user)) {
-           return View::view('errors', ['error' => 'Invalid password or login']);
+            return View::view('errors', ['error' => 'Invalid password or login']);
 
         }
 
