@@ -1,5 +1,6 @@
 <?php
 
+use MvcBlog\App\Controllers\AdminPanelController;
 use MvcBlog\App\Controllers\MainController;
 
 return [
@@ -8,7 +9,7 @@ return [
         '/login' => [MainController::class, 'login'],
         '/registration' => [MainController::class, 'registration'],
         '/logout' => [MainController::class, 'logout'],
-        '/admin' => [MainController::class, 'admin'],
+        '/admin-panel' => [AdminPanelController::class, 'index'],
     ],
     'POST' => [
         '/' => [MainController::class, 'test'],
