@@ -59,32 +59,4 @@ class MainController
         header('Location: /login');
         die();
     }
-
-    /**
-     * Авторизация пользователя
-     */
-    public static function auth(): string
-    {
-        $userEntity = new UserEntity();
-        $userModel = new UserModel();
-        $user = $userModel->getUser($userEntity->getEmail());
-
-        if (is_null($user)) {
-            return View::view('errors', ['error' => 'Invalid password or login']);
-
-        }
-
-        if (password_verify($userEntity->getPassword(), $user->getPassword())) {
-
-            // Запись id авторизованного пользователя в сессию
-            $_SESSION['userId'] = $user->getId();
-            $_SESSION['role'] = $userModel->getRoleName($user->getId());
-
-            // Редирект на главную страницу
-            header('Location: /');
-            die();
-        }
-
-        return View::view('errors', ['error' => 'Invalid password or login']);
-    }
 }
