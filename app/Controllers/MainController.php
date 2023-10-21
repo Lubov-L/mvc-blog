@@ -31,15 +31,6 @@ class MainController
         die();
     }
 
-    public static function admin(): string
-    {
-        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-            return View::view('admin', ['title' => 'Admin panel']);
-        }
-
-        return View::view('notFound', ['title' => 'Error']);
-    }
-
     /**
      * Регистрация пользователя
      */
