@@ -5,10 +5,10 @@ namespace MvcBlog\App\Entities;
 class UserEntity
 {
     private int $id;
-    private string $name;
-    private string $phone;
-    private string $email;
-    private string $password;
+    private string $name = '';
+    private string $phone = '';
+    private string $email = '';
+    private string $password = '';
 
     public function __construct(array $data = null)
     {
