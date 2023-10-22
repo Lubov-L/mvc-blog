@@ -31,7 +31,11 @@ class Routing
         }
 
         if (!method_exists($class, $method)) {
-            ErrorController::notFound();
+            if (str_contains($uri, '/api')) {
+                ErrorController::apiNotFound();
+            } else {
+                ErrorController::notFound();
+            }
             die();
         }
 
