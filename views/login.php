@@ -10,11 +10,10 @@ require_once __DIR__ . '/header.php';
 <form action="/login" method="post" class="login__form">
     <p>Login</p>
     <label>
-        <input type="email" name="email" placeholder="Enter email">
+        <input type="email" name="email" placeholder="Enter email" required>
     </label>
-    <label>
-        <input type="password" name="password" placeholder="Enter your password">
-        <label class="invalid hidden">Invalid password or login</label>
+    <label class="login">
+        <input type="password" name="password" placeholder="Enter your password" required>
     </label>
     <button type="submit" class="login_button">enter</button>
 </form>
