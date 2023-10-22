@@ -22,19 +22,21 @@ class Routing
         $class = $routing[$method][$path][0] ?? null;
         $method = $routing[$method][$path][1] ?? null;
 
+
         if (is_null($path) || is_null($method) || is_null($class)) {
             if (str_contains($uri, '/api')) {
-                ErrorController::apiNotFound();
+                echo ErrorController::apiNotFound();
             } else {
-                ErrorController::notFound();
+                echo ErrorController::notFound();
             }
+            die();
         }
 
         if (!method_exists($class, $method)) {
             if (str_contains($uri, '/api')) {
-                ErrorController::apiNotFound();
+                echo ErrorController::apiNotFound();
             } else {
-                ErrorController::notFound();
+                echo ErrorController::notFound();
             }
             die();
         }
