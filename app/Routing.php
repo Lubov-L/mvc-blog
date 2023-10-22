@@ -30,6 +30,11 @@ class Routing
             }
         }
 
+        if (!method_exists($class, $method)) {
+            ErrorController::notFound();
+            die();
+        }
+
         if (str_contains($uri, '/api')) {
             echo $class::$method();
         } else {
