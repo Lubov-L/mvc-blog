@@ -22,6 +22,8 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
         }, body: JSON.stringify(jsonData)
     };
 
+    clearErrors([email, name, password, password2]);
+
     fetch(url, requestOptions)
         .then(response => {
             if (!response.ok) {
@@ -33,17 +35,19 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
                     window.location.href = "/";
                 } else if (data.success === false) {
                     data.errors.forEach((error) => {
-                        if (error.field === "name") {
-                            displayError(name, error.error);
-                        }
-                        if (error.field === "email") {
-                            displayError(email, error.error);
-                        }
-                        if (error.field === "password") {
-                            displayError(password, error.error);
-                        }
-                        if (error.field === "password2") {
-                            displayError(password2, error.error);
+                        switch (error.field) {
+                            case "name":
+                                displayError(name, error.error);
+                                break;
+                            case "email":
+                                displayError(email, error.error);
+                                break;
+                            case "password":
+                                displayError(password, error.error);
+                                break;
+                            case "password2":
+                                displayError(password2, error.error);
+                                break;
                         }
                     });
                 } else {
@@ -58,4 +62,12 @@ function displayError(element, message) {
     const p = document.createElement("p");
     p.textContent = message;
     element.appendChild(p);
+}
+
+function clearErrors(elements) {
+    elements.forEach((element) => {
+        if (element.lastChild) {
+            element.lastChild.remove();
+        }
+    });
 }
