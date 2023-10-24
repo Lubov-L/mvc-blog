@@ -12,6 +12,11 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
 
     formData.forEach(function (value, key) {
         jsonData[key] = value;
+
+        const errorElement = document.querySelector('.' + key + ' p.error');
+        if (errorElement) {
+            errorElement.remove();
+        }
     });
 
     let url = "/api/v1/registration";
@@ -21,8 +26,6 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
             "Content-Type": "application/json"
         }, body: JSON.stringify(jsonData)
     };
-
-    clearErrors([email, name, password, password2]);
 
     fetch(url, requestOptions)
         .then(response => {
@@ -59,15 +62,13 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
 });
 
 function displayError(element, message) {
+    const existingErrors = element.querySelectorAll('p.error');
+    existingErrors.forEach((error) => {
+        error.remove();
+    });
+
     const p = document.createElement("p");
     p.textContent = message;
+    p.classList.add('error');
     element.appendChild(p);
-}
-
-function clearErrors(elements) {
-    elements.forEach((element) => {
-        if (element.lastChild) {
-            element.lastChild.remove();
-        }
-    });
 }
