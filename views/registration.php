@@ -17,7 +17,7 @@ require_once __DIR__ . '/header.php';
         <input type="tel" name="phone" pattern="^\+[1-9]\d{10}$" placeholder="Enter your phone">
     </label>
     <label class="email" for="email">
-        <input type="email" name="email" placeholder="Enter your email*" >
+        <input type="email" name="email" placeholder="Enter your email*" required>
     </label>
     <label class="password" for="password">
         <input type="password" name="password" placeholder="Create password*" required>

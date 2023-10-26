@@ -4,11 +4,17 @@ document.querySelector(".login__form").addEventListener("submit", async function
     let form = document.querySelector(".login__form");
     let formData = new FormData(form);
     let jsonData = {};
-    let login = document.querySelector('.login');
+    let auth_password = document.querySelector('.auth_password');
+    let login_error = document.querySelector('.error');
     let unexpectedError = document.querySelector('.unexpected_error');
 
     formData.forEach(function (value, key) {
         jsonData[key] = value;
+
+        const existingErrors = document.querySelectorAll('p.error');
+        existingErrors.forEach((error) => {
+            error.remove();
+        });
     });
 
     let url = "/api/v1/login";
@@ -31,8 +37,9 @@ document.querySelector(".login__form").addEventListener("submit", async function
                     window.location.href = "/";
                 } else if (data.success === false) {
                     const p = document.createElement("p");
+                    p.classList.add('error');
                     p.textContent = data.error;
-                    login.appendChild(p);
+                    auth_password.appendChild(p);
                 } else {
                     form.classList.add('hidden');
                     unexpectedError.classList.remove('hidden');

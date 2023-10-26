@@ -33,7 +33,6 @@ document.querySelector(".signUp__form").addEventListener("submit", async functio
                 throw new Error("An unexpected error occurred" + response.status);
             }
             response.json().then(function (data) {
-
                 if (data.success === true) {
                     window.location.href = "/";
                 } else if (data.success === false) {
