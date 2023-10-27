@@ -47,7 +47,7 @@ class UserApiController extends ApiController
         return json_encode(['success' => false, 'error' => 'Invalid login or password']);
     }
 
-    public static function registration()
+    public static function registration(): false|string
     {
 
         self::setHeader();
@@ -66,7 +66,7 @@ class UserApiController extends ApiController
         if (empty($userData->getName())) {
             $errors[] = ['field' => 'name', 'error' => 'Field is required'];
         }
-        
+
         if (empty($userData->getEmail())) {
             $errors[] = ['field' => 'email', 'error' => 'Field is required'];
         }
@@ -98,10 +98,30 @@ class UserApiController extends ApiController
 
         try {
             $userModel->registration($userData->getName(), $userData->getPhone(), $userData->getEmail(), $passwordHash);
-        } catch (Exception $exception){
+        } catch (Exception $exception) {
             return json_encode(['success' => false, 'error' => 'Error creating user']);
         }
 
         return json_encode(['success' => true]);
+    }
+
+    public static function list()
+    {
+        self::setHeader();
+
+        $limit = 5;
+        $page = (int)($_GET['page'] ?? 1);
+        $offset = $limit * ($page - 1);
+
+        $userModel = new UserModel();
+        $users = $userModel->list($limit, $offset);
+
+        $data = [
+            'users' => $users,
+            'page' => $page,
+            'countPage' => (int)($userModel->usersCount() / $limit)
+        ];
+
+        return json_encode($data);
     }
 }
