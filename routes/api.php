@@ -5,7 +5,7 @@ use MvcBlog\App\Controllers\UserApiController;
 
 return [
     'GET' => [
-
+        '/api/v1/users/list' => [UserApiController::class, 'list'],
     ],
     'POST' => [
         '/api/v1/login' => [UserApiController::class, 'auth'],
