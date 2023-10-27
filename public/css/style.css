@@ -35,11 +35,17 @@ form > p, a {
     align-items: center;
     height: 100%;
     max-width: 1000px;
+    padding: 0 30px;
 }
 
 .nav__link {
     margin-right: 30px;
 }
+
+.nav__link:last-child {
+    margin: 0;
+}
+
 
 form {
     width: 100%;
@@ -107,7 +113,7 @@ label > p {
 
 .content {
     max-width: 1000px;
-    padding-top: 3%;
+    padding: 50px 0 0 20px;
 }
 
 .content__block {
@@ -117,19 +123,17 @@ label > p {
 
 .content__panel {
     padding: 12% 10% 14% 10%;
+    height: fit-content;
 }
 
 .content__panel, .article {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
-.content__panel, .content__main {
-    display: flex;
-    flex-direction: column;
-}
-
 .content__main {
     align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .content__panel-link {
@@ -143,8 +147,9 @@ label > p {
 }
 
 .article {
-    max-width: 90%;
+    width: 93%;
     padding: 2%;
+    margin-bottom: 3%;
 }
 
 .article > h3, .article > p {
@@ -161,4 +166,13 @@ label > p {
 .unexpected_error {
     margin-top: 30px;
     text-align: center;
+}
+
+.link-active {
+    pointer-events: none;
+    color: black;
+}
+
+.link-pane:not(.link-pane-show) {
+    display: none;
 }
