@@ -49,4 +49,28 @@ class UserModel extends Model
 
         return $result['name'];
     }
+
+    public function list(int $limit, int $offset = 0): array|null
+    {
+        $stmt = $this->pdo->prepare('SELECT name, email  FROM users LIMIT :limit OFFSET :offset');
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($users === false) {
+            return null;
+        }
+
+        return $users;
+    }
+
+    public function usersCount()
+    {
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM users');
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
+    }
 }

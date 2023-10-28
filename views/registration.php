@@ -25,7 +25,7 @@ require_once __DIR__ . '/header.php';
     <label class="password2" for="password2">
         <input type="password" name="password2" placeholder="Repeat password*" data-password-match="password" required>
     </label>
-    <button type="submit">registration</button>
+    <button type="submit" class="reg-button">registration</button>
 </form>
 </body>
 </html>

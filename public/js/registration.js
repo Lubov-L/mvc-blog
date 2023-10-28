@@ -1,4 +1,4 @@
-document.querySelector(".signUp__form").addEventListener("submit", async function (e) {
+document.getElementById(".signUp__form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     let form = document.querySelector(".signUp__form");
