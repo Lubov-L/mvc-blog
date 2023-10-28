@@ -109,7 +109,7 @@ class UserApiController extends ApiController
     {
         self::setHeader();
 
-        $limit = 5;
+        $limit = 10;
         $page = (int)($_GET['page'] ?? 1);
         $offset = $limit * ($page - 1);
 
