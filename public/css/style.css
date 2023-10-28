@@ -21,18 +21,23 @@ form > p, a {
     height: 70px;
 }
 
-.header__nav, form {
+.header__nav, form, .content__main,
+#user-list > div, #user-list > div > div,
+#pagination, #prev-page, #next-page {
     display: flex;
 }
 
-.header__nav, .line, form, .content,
-.article > h3 {
+.header__nav, .line, form, .content, .article > h3 {
     margin: 0 auto;
+}
+
+#prev-page, #next-page, .header__nav, form,
+.content__main, #pagination {
+    align-items: center;
 }
 
 .header__nav {
     justify-content: space-between;
-    align-items: center;
     height: 100%;
     max-width: 1000px;
     padding: 0 30px;
@@ -46,12 +51,18 @@ form > p, a {
     margin: 0;
 }
 
+button, #edit-button, #delete-button {
+    cursor: pointer;
+}
+
+div {
+    text-wrap: normal;
+}
 
 form {
     width: 100%;
     max-width: 300px;
     flex-direction: column;
-    align-items: center;
     padding-top: 30px;
 }
 
@@ -69,16 +80,16 @@ input, .invalid, label > p {
     padding: 0 10px;
 }
 
-input, button {
+input, .reg-button, .login_button {
     height: 40px;
 }
 
-input, button {
+input, .reg-button, .login_button {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
-button {
+.reg-button, .login_button {
     background-color: #3C8EBC;
     width: 60%;
     color: white;
@@ -100,6 +111,10 @@ button {
 
 .hidden {
     display: none;
+}
+
+.disabled-color {
+    border-color: #bbb !important;
 }
 
 .invalid, label > p {
@@ -126,13 +141,11 @@ label > p {
     height: fit-content;
 }
 
-.content__panel, .article {
+.content__panel, .article, #user-list {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
 .content__main {
-    align-items: center;
-    display: flex;
     flex-direction: column;
 }
 
@@ -146,7 +159,7 @@ label > p {
     margin-top: 0;
 }
 
-.article {
+.article, #user-list {
     width: 93%;
     padding: 2%;
     margin-bottom: 3%;
@@ -175,4 +188,56 @@ label > p {
 
 .link-pane:not(.link-pane-show) {
     display: none;
+}
+
+#user-list {
+    padding: 20px 20px 30px 20px;
+}
+
+#user-list > div {
+    padding: 15px 0 15px 20px;
+    color: black;
+    display: grid;
+    grid-template-columns: 40% 50% 10%;
+    border-bottom: 1px solid #3C8EBC;
+}
+
+#user-list > div:last-child {
+    border: none;
+}
+
+#edit-button, #delete-button {
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+#edit-button {
+    background-image: url("../images/edit.png");
+}
+
+#delete-button {
+    background-image: url("../images/delete.png");
+}
+
+#prev-page, #next-page {
+    width: 12px;
+    height: 12px;
+    border: none;
+    justify-content: center;
+    border-top: 2px solid #3C8EBC;
+    background-color: white;
+}
+
+#prev-page {
+    transform: rotate(-45deg);
+    margin-right: 10px;
+    border-left: 2px solid #3C8EBC;
+}
+
+#next-page {
+    margin-left: 10px;
+    border-right: 2px solid #3C8EBC;
+    transform: rotate(45deg);
 }

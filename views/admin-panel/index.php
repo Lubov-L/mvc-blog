@@ -24,9 +24,14 @@ require_once __DIR__ . '/../header.php';
         </div>
         <div id="articles-container" class="content__main link-pane link-pane-show" data-id="0"></div>
         <div id="users-container" class="content__main link-pane" data-id="1">
-            <a href="" class="left-arrow">left</a>
-            <p class="page">page</p>
-            <a href="" class="right-arrow">right</a>
+            <div id="user-list"></div>
+            <div id="pagination">
+                <button id="prev-page">
+                </button>
+                <span id="current-page"></span>
+                <button id="next-page">
+                </button>
+            </div>
         </div>
         <div id="news-container" class="content__main link-pane" data-id="2">news</div>
     </div>

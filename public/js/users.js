@@ -1,56 +1,102 @@
 document.querySelector(".users_link").addEventListener("click", async function (e) {
     e.preventDefault();
 
-    let userList = document.getElementById("users-container");
-    let left = document.querySelector(".left-arrow");
-    let right = document.querySelector(".right-arrow");
-    let page = document.querySelector(".page");
+    const userList = document.getElementById("user-list");
+    const prevButton = document.getElementById("prev-page");
+    const nextButton = document.getElementById("next-page");
+    const currentPageElement = document.getElementById("current-page");
 
-    let url = `/api/v1/users/list`;
+    let countPage;
+    let currentPage = 1;
 
-    let requestOptions = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
+    async function loadData(page) {
+        try {
+            const response = await fetch(`/api/v1/users/list?page=${page}`);
+            return await response.json();
+        } catch (error) {
+            console.error("Data error:", error);
         }
-    };
+    }
 
-    fetch(url, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("An unexpected error occurred" + response.status);
-            }
+    function displayUsers(users) {
+        userList.innerHTML = "";
+        users.forEach((user) => {
+            const userElement = document.createElement("div");
+            const userName = document.createElement("p");
+            const userEmail = document.createElement("p");
+            const userButtons = document.createElement("div");
+            const userEdit = document.createElement("a");
+            const userDelete = document.createElement("a");
 
-            response.json().then(function (data) {
-                data.users.forEach(user => {
-                    const userInf = document.createElement('div');
-                    userInf.classList.add('user_inf');
+            userEdit.id = "edit-button";
+            userDelete.id = "delete-button";
 
-                    const name = document.createElement('p');
-                    name.textContent = user.name;
+            userName.textContent = user.name;
+            userEmail.textContent = user.email;
 
-                    const email = document.createElement('p');
-                    email.textContent = user.email;
-
-                    userInf.appendChild(name);
-                    userInf.appendChild(email);
-
-                    userList.appendChild(userInf);
-                });
-                page.textContent = data.page;
-
-                if (data.page <= 1) {
-                    left.disabled = true;
-                }
-                left.href = "http://localhost/api/v1/users/list?page=" + (data.page - 1);
-
-                if (data.page >= page) {
-                    right.disabled = true;
-                }
-                right.href = "http://localhost/api/v1/users/list?page=" + (data.page + 1);
-            })
-        })
-        .catch(error => {
-            console.error("Error:", error);
+            userElement.appendChild(userName);
+            userElement.appendChild(userEmail);
+            userButtons.appendChild(userEdit)
+            userButtons.appendChild(userDelete);
+            userElement.appendChild(userButtons);
+            userList.appendChild(userElement);
         });
+    }
+
+    function updateUI() {
+        currentPageElement.textContent = String(currentPage);
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage >= countPage;
+
+        prevButton.classList.toggle("disabled-color", prevButton.disabled);
+        nextButton.classList.toggle("disabled-color", nextButton.disabled);
+    }
+
+    prevButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            loadDataAndDisplay();
+        }
+    });
+
+    nextButton.addEventListener("click", () => {
+        if (currentPage < countPage) {
+            currentPage++;
+            loadDataAndDisplay();
+        }
+    });
+
+    async function loadDataAndDisplay() {
+        const data = await loadData(currentPage);
+        const responseObject = new ResponseObject();
+        responseObject.page = data.page;
+        responseObject.countPage = data.countPage;
+
+        data.users.forEach(user => {
+            const newUser = new User(user.name, user.email);
+            responseObject.users.push(newUser);
+        });
+
+        const users = data.users;
+        countPage = data.countPage;
+        displayUsers(users);
+        updateUI();
+    }
+
+    await loadDataAndDisplay();
 });
+
+class User {
+    constructor(name, email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+
+class ResponseObject {
+    constructor() {
+        this.users = [];
+        this.page = 0;
+        this.countPage = 0;
+    }
+}
