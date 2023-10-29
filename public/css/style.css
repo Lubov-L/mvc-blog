@@ -51,7 +51,7 @@ form > p, a {
     margin: 0;
 }
 
-button, #edit-button, #delete-button {
+button, .edit-button, .delete-button {
     cursor: pointer;
 }
 
@@ -206,18 +206,18 @@ label > p {
     border: none;
 }
 
-#edit-button, #delete-button {
+.edit-button, .delete-button {
     background-size: cover;
     width: 20px;
     height: 20px;
     margin-left: 10px;
 }
 
-#edit-button {
+.edit-button {
     background-image: url("../images/edit.png");
 }
 
-#delete-button {
+.delete-button {
     background-image: url("../images/delete.png");
 }
 

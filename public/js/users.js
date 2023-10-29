@@ -28,8 +28,10 @@ document.querySelector(".users_link").addEventListener("click", async function (
             const userEdit = document.createElement("a");
             const userDelete = document.createElement("a");
 
-            userEdit.id = "edit-button";
-            userDelete.id = "delete-button";
+            userElement.dataset.id = user.id;
+
+            userEdit.classList.add("edit-button");
+            userDelete.classList.add("delete-button");
 
             userName.textContent = user.name;
             userEmail.textContent = user.email;
@@ -73,7 +75,7 @@ document.querySelector(".users_link").addEventListener("click", async function (
         responseObject.countPage = data.countPage;
 
         data.users.forEach(user => {
-            const newUser = new User(user.name, user.email);
+            const newUser = new User(user.id, user.name, user.email);
             responseObject.users.push(newUser);
         });
 
@@ -81,13 +83,62 @@ document.querySelector(".users_link").addEventListener("click", async function (
         countPage = data.countPage;
         displayUsers(users);
         updateUI();
+        userDelete();
     }
 
     await loadDataAndDisplay();
 });
 
+function userDelete() {
+    const deleteButtons = document.querySelectorAll(".delete-button");
+
+    function handleClick(e) {
+        e.preventDefault();
+
+        let parentElement = this.closest("[data-id]");
+        let dataIdValue = parentElement.getAttribute("data-id");
+        let jsonData = {};
+
+        let url = '/api/v1/user';
+
+        jsonData["id"] = dataIdValue;
+
+        let requestOptions = {
+            method: "DELETE", headers: {
+                "Content-Type": "application/json"
+            }, body: JSON.stringify(jsonData)
+        };
+        console.log(requestOptions);
+
+        fetch(url, requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("An unexpected error occurred" + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data) {
+                    if (data.success === true) {
+                        console.log("true true");
+                    } else if (data.success === false) {
+                        console.log("false false");
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("An error occurred:", error);
+            });
+    }
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", handleClick);
+    });
+}
+
 class User {
-    constructor(name, email) {
+    constructor(id, name, email) {
+        this.id = id;
         this.name = name;
         this.email = email;
     }
