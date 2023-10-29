@@ -52,7 +52,7 @@ class UserModel extends Model
 
     public function list(int $limit, int $offset = 0): array|null
     {
-        $stmt = $this->pdo->prepare('SELECT name, email  FROM users LIMIT :limit OFFSET :offset');
+        $stmt = $this->pdo->prepare('SELECT id, name, email  FROM users LIMIT :limit OFFSET :offset');
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
@@ -72,5 +72,19 @@ class UserModel extends Model
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM users WHERE id = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+
+        return true;
     }
 }

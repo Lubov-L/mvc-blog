@@ -105,7 +105,7 @@ class UserApiController extends ApiController
         return json_encode(['success' => true]);
     }
 
-    public static function list()
+    public static function list(): false|string
     {
         self::setHeader();
 
@@ -123,5 +123,25 @@ class UserApiController extends ApiController
         ];
 
         return json_encode($data);
+    }
+
+    public static function delete(): false|string
+    {
+        self::setHeader();
+
+        $body = file_get_contents('php://input');
+
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $userId = $requestData["id"];
+        $userModel = new UserModel();
+
+        $result = $userModel->delete($userId);
+
+        return json_encode(['success' => $result]);
     }
 }
