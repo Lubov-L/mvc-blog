@@ -10,20 +10,25 @@ a {
     text-transform: uppercase;
 }
 
-form > p, a {
+form > p, a,
+h3 {
     color: #3C8EBC;
 }
 
-.header {
+.header, form, label, .admin, .statistics,
+input, .invalid, label > p, .line, .dashboard, .users {
     width: 100%;
+}
+
+.header {
     background: #F4F8FF;
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
     height: 70px;
 }
 
-.header__nav, form, .content__main,
-#user-list > div, #user-list > div > div,
-#pagination, #prev-page, #next-page {
+.header__nav, form, .content__main, .statistics > div,
+#user-list > div, #user-list > div > div, .dashboard,
+#pagination, #prev-page, #next-page, .statistics, .users {
     display: flex;
 }
 
@@ -31,13 +36,17 @@ form > p, a {
     margin: 0 auto;
 }
 
-#prev-page, #next-page, .header__nav, form,
-.content__main, #pagination {
+#prev-page, #next-page, .header__nav, form, .users,
+.content__main, #pagination, .statistics > div,
+.dashboard {
     align-items: center;
 }
 
-.header__nav {
+.statistics, .header__nav {
     justify-content: space-between;
+}
+
+.header__nav {
     height: 100%;
     max-width: 1000px;
     padding: 0 30px;
@@ -55,19 +64,16 @@ button, .edit-button, .delete-button {
     cursor: pointer;
 }
 
-div {
-    text-wrap: normal;
+.dashboard, .users, form {
+    flex-direction: column;
 }
 
 form {
-    width: 100%;
     max-width: 300px;
-    flex-direction: column;
     padding-top: 30px;
 }
 
 label {
-    width: 100%;
     height: 60px;
 }
 
@@ -75,8 +81,11 @@ form > p {
     margin: 20px 0 30px 0;
 }
 
+h3 {
+    text-align: center;
+}
+
 input, .invalid, label > p {
-    width: 100%;
     padding: 0 10px;
 }
 
@@ -104,7 +113,6 @@ input, .reg-button, .login_button {
 }
 
 .admin {
-    width: 100%;
     text-align: center;
     padding: 30px;
 }
@@ -128,7 +136,7 @@ label > p {
 
 .content {
     max-width: 1000px;
-    padding: 50px 0 0 20px;
+    padding: 50px 30px;
 }
 
 .content__block {
@@ -139,13 +147,14 @@ label > p {
 .content__panel {
     padding: 12% 10% 14% 10%;
     height: fit-content;
+    margin-right: 30px;
 }
 
-.content__panel, .article, #user-list {
+.content__panel, .article, .content__main {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
-.content__main {
+.content__main, .statistics > div  {
     flex-direction: column;
 }
 
@@ -159,39 +168,46 @@ label > p {
     margin-top: 0;
 }
 
-.article, #user-list {
-    width: 93%;
-    padding: 2%;
-    margin-bottom: 3%;
-}
-
-.article > h3, .article > p {
-    margin-bottom: 10px;
-    color: rgb(56, 56, 56);
-}
-
-.line {
-    border-bottom: 1px solid #3C8EBC;
-    width: 100%;
-    margin: 30px 0;
-}
-
 .unexpected_error {
     margin-top: 30px;
     text-align: center;
 }
 
-.link-active {
-    pointer-events: none;
-    color: black;
+.line {
+    border-bottom: 1px solid #3C8EBC;
+    margin: 15px 0;
 }
 
-.link-pane:not(.link-pane-show) {
+.content__main {
+    padding: 30px 20px;
+}
+
+.users {
     display: none;
 }
 
+#pagination, #prev-page, #next-page {
+    justify-content: center;
+}
+
+.statistics {
+    flex-wrap: wrap;
+}
+
+.statistics > div > img {
+    max-width: 130px;
+    max-height: 110px;
+}
+
+.statistics > div > p {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
 #user-list {
-    padding: 20px 20px 30px 20px;
+    min-height: 520px;
+    width: 95%;
+    margin: 3% 0;
 }
 
 #user-list > div {
@@ -204,6 +220,10 @@ label > p {
 
 #user-list > div:last-child {
     border: none;
+}
+
+#user-list > div > p:nth-child(2) {
+    color: #868686;
 }
 
 .edit-button, .delete-button {
@@ -225,7 +245,6 @@ label > p {
     width: 12px;
     height: 12px;
     border: none;
-    justify-content: center;
     border-top: 2px solid #3C8EBC;
     background-color: white;
 }

@@ -1,5 +1,4 @@
-document.querySelector(".users_link").addEventListener("click", async function (e) {
-    e.preventDefault();
+window.addEventListener("load", async function() {
 
     const userList = document.getElementById("user-list");
     const prevButton = document.getElementById("prev-page");
