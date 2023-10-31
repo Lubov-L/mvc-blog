@@ -98,7 +98,7 @@ class UserApiController extends ApiController
 
         try {
             $userModel->registration($userData->getName(), $userData->getPhone(), $userData->getEmail(), $passwordHash);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return json_encode(['success' => false, 'error' => 'Error creating user']);
         }
 
@@ -119,7 +119,8 @@ class UserApiController extends ApiController
         $data = [
             'users' => $users,
             'page' => $page,
-            'countPage' => (int)($userModel->usersCount() / $limit)
+            'count' => $userModel->usersCount(),
+            'countPage' => (int)ceil($userModel->usersCount() / $limit)
         ];
 
         return json_encode($data);
@@ -143,5 +144,29 @@ class UserApiController extends ApiController
         $result = $userModel->delete($userId);
 
         return json_encode(['success' => $result]);
+    }
+
+    public static function show(): false|string
+    {
+        self::setHeader();
+
+        $body = file_get_contents('php://input');
+
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $userId = $requestData["id"];
+        $userModel = new UserModel();
+
+        $user = $userModel->show($userId);
+
+        if ($user === false) {
+            return json_encode(['success' => false, 'error' => 'User not found']);
+        }
+
+        return json_encode(['success' => true, 'user' => $user]);
     }
 }
