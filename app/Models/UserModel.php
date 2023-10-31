@@ -78,7 +78,6 @@ class UserModel extends Model
     {
         $stmt = $this->pdo->prepare('DELETE FROM users WHERE id = :id');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-
         $stmt->execute();
 
         if ($stmt->rowCount() === 0) {
@@ -86,5 +85,14 @@ class UserModel extends Model
         }
 
         return true;
+    }
+
+    public function show(int $id): array|bool
+    {
+        $stmt = $this->pdo->prepare('SELECT name, phone, email FROM users WHERE id = :id');
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
