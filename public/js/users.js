@@ -1,4 +1,4 @@
-window.addEventListener("load", async function() {
+window.addEventListener("load", async function () {
 
     const userList = document.getElementById("user-list");
     const prevButton = document.getElementById("prev-page");
@@ -82,6 +82,7 @@ window.addEventListener("load", async function() {
         countPage = data.countPage;
         displayUsers(users);
         updateUI();
+        userEdit();
         userDelete();
     }
 
@@ -135,11 +136,49 @@ function userDelete() {
     });
 }
 
+function userEdit() {
+    const editButton = document.querySelectorAll(".edit-button");
+    const name = document.getElementById("user-name");
+    const phone = document.getElementById("user-phone");
+    const email = document.getElementById("user-email");
+
+    async function handleClick(e) {
+        e.preventDefault();
+
+        let parentElement = this.closest("[data-id]");
+        let dataIdValue = parentElement.getAttribute("data-id");
+
+        async function loadData(dataIdValue) {
+            try {
+                const response = await fetch(`/api/v1/user?id=${dataIdValue}`);
+                return await response.json();
+            } catch (error) {
+                console.error("Data error:", error);
+            }
+        }
+
+        async function loadDataAndDisplay() {
+            const data = await loadData(dataIdValue);
+            const user = data.user;
+
+           name.value = user.name;
+           phone.value = user.phone;
+           email.value = user.email;
+        }
+        await loadDataAndDisplay();
+    }
+
+    editButton.forEach(button => {
+        button.addEventListener("click", handleClick);
+    });
+}
+
 class User {
-    constructor(id, name, email) {
+    constructor(id, name, email, phone = null) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.phone = phone;
     }
 }
 
