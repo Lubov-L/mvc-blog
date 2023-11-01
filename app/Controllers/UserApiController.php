@@ -150,15 +150,12 @@ class UserApiController extends ApiController
     {
         self::setHeader();
 
-        $body = file_get_contents('php://input');
+        $userId = isset($_GET['id']) ? (int) $_GET['id'] : null;
 
-        $requestData = json_decode($body, true);
-
-        if ($requestData === null) {
+        if ($userId === null) {
             return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
         }
 
-        $userId = $requestData["id"];
         $userModel = new UserModel();
 
         $user = $userModel->show($userId);
