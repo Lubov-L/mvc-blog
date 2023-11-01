@@ -89,16 +89,16 @@ input, .invalid, label > p {
     padding: 0 10px;
 }
 
-input, .reg-button, .login_button {
+input, .reg-button, .login_button, .save-button{
     height: 40px;
 }
 
-input, .reg-button, .login_button {
+input, .reg-button, .login_button, .save-button {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
-.reg-button, .login_button {
+.reg-button, .login_button, .save-button {
     background-color: #3C8EBC;
     width: 60%;
     color: white;
