@@ -89,10 +89,24 @@ class UserModel extends Model
 
     public function show(int $id): array|bool
     {
-        $stmt = $this->pdo->prepare('SELECT name, phone, email FROM users WHERE id = :id');
+        $stmt = $this->pdo->prepare('SELECT id, name, phone, email FROM users WHERE id = :id');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function edit($id, $name, $phone, $email): bool
+    {
+        $stmt = $this->pdo->prepare('UPDATE users 
+                                            SET name = :name, phone = :phone, email = :email 
+                                            WHERE id = :id');
+        $stmt->bindParam(':id', $id,  PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        return true;
     }
 }

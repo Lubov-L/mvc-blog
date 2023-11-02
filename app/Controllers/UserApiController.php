@@ -166,4 +166,27 @@ class UserApiController extends ApiController
 
         return json_encode(['success' => true, 'user' => $user]);
     }
+
+    public static function edit(): false|string
+    {
+        self::setHeader();
+
+        $body = file_get_contents('php://input');
+
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $userId = $requestData["id"];
+        $userName = $requestData["name"];
+        $userPhone = $requestData["phone"];
+        $userEmail = $requestData["email"];
+        $userModel = new UserModel();
+
+        $result = $userModel->edit($userId, $userName, $userPhone, $userEmail);
+
+        return json_encode(['success' => $result]);
+    }
 }
