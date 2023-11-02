@@ -108,7 +108,6 @@ function userDelete() {
                 "Content-Type": "application/json"
             }, body: JSON.stringify(jsonData)
         };
-        console.log(requestOptions);
 
         fetch(url, requestOptions)
             .then(response => {
@@ -137,7 +136,12 @@ function userDelete() {
 }
 
 function userEdit() {
+    const wrapper = document.querySelector(".wrapper");
+    const modal = document.querySelector(".modal_form");
+    const back = document.querySelector(".back");
+    const closeButton = document.querySelector(".close-button");
     const editButton = document.querySelectorAll(".edit-button");
+    const id = document.getElementById("user-id");
     const name = document.getElementById("user-name");
     const phone = document.getElementById("user-phone");
     const email = document.getElementById("user-email");
@@ -158,19 +162,34 @@ function userEdit() {
         }
 
         async function loadDataAndDisplay() {
+
+            wrapper.classList.remove("hidden");
+            modal.classList.remove("hidden");
+            back.classList.remove("hidden");
+
             const data = await loadData(dataIdValue);
             const user = data.user;
 
-           name.value = user.name;
-           phone.value = user.phone;
-           email.value = user.email;
+            id.value = user.id
+            name.value = user.name;
+            phone.value = user.phone;
+            email.value = user.email;
         }
+
         await loadDataAndDisplay();
     }
 
     editButton.forEach(button => {
         button.addEventListener("click", handleClick);
     });
+
+    function closeModal() {
+        wrapper.classList.toggle("hidden");
+        back.classList.toggle("hidden");
+    }
+
+    back.addEventListener("click", closeModal);
+    closeButton.addEventListener("click", closeModal);
 }
 
 class User {
