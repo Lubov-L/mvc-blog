@@ -9,8 +9,7 @@ require_once __DIR__ . '/../header.php';
 ?>
 
 <script src="/js/admin/admin.js" async></script>
-<script src="/js/admin/users.js" async></script>
-<script src="/js/admin/save.js" async></script>
+
 
 <div class="content">
     <div class="content__block">
