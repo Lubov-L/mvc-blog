@@ -2,6 +2,8 @@
 
 namespace MvcBlog\App\Controllers;
 
+use Exception;
+use JetBrains\PhpStorm\NoReturn;
 use MvcBlog\App\Entities\UserEntity;
 use MvcBlog\App\Models\UserModel;
 use MvcBlog\App\View;
@@ -23,7 +25,7 @@ class MainController
         return View::view('registration', ['title' => 'Registration']);
     }
 
-    public static function logout(): void
+    #[NoReturn] public static function logout(): void
     {
         $_SESSION = [];
         session_destroy();
@@ -43,7 +45,7 @@ class MainController
             $passwordHash = password_hash($userEntity->getPassword(), PASSWORD_DEFAULT);
 
             $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $passwordHash);
-        } catch (\Exception $exception) {
+        } catch (Exception) {
             return View::view('errors', ['error' => 'Error creating user']);
         }
         // Редирект на страницу login

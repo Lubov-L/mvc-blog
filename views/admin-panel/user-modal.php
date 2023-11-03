@@ -14,6 +14,7 @@
         <label class="email" for="email">
             <input type="email" name="email" id="user-email" required>
         </label>
+        <div class="messages"></div>
         <button type="submit" class="save-button" onclick="save()">save</button>
     </form>
 </div>

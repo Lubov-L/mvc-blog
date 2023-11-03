@@ -300,11 +300,31 @@ input, .reg-button, .login_button, .save-button {
     z-index: 3;
     background-color: white;
     max-width: 400px;
-    max-height: 350px;
+    min-height: 350px;
     padding: 60px 30px 40px 30px;
 }
 
 .id {
     display: none;
     height: 0;
+}
+
+.messages {
+    height: 15px;
+}
+
+.success {
+    font-size: 10px;
+    color: green;
+    opacity: 0;
+    animation: fadeIn 1ms ease-in-out 1ms forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

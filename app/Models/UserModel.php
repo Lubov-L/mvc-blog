@@ -96,17 +96,26 @@ class UserModel extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function edit($id, $name, $phone, $email): bool
+    public function edit($id, $name, $phone, $email): false|string
     {
-        $stmt = $this->pdo->prepare('UPDATE users 
-                                            SET name = :name, phone = :phone, email = :email 
-                                            WHERE id = :id');
-        $stmt->bindParam(':id', $id,  PDO::PARAM_INT);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        try {
+            $stmt = $this->pdo->prepare('UPDATE users 
+                                     SET name = :name, phone = :phone, email = :email 
+                                     WHERE id = :id');
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':email', $email);
+            $result = $stmt->execute();
 
-        return true;
+            if ($result) {
+                return json_encode(['success' => true, 'message' => 'Profile is updated successfully']);
+            } else {
+                return json_encode(['success' => false, 'message' => 'Error updating profile']);
+            }
+
+        } catch (Exception) {
+            return json_encode(['success' => false, 'message' => 'Error updating profile']);
+        }
     }
 }

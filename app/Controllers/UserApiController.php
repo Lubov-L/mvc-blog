@@ -185,8 +185,6 @@ class UserApiController extends ApiController
         $userEmail = $requestData["email"];
         $userModel = new UserModel();
 
-        $result = $userModel->edit($userId, $userName, $userPhone, $userEmail);
-
-        return json_encode(['success' => $result]);
+        return $userModel->edit($userId, $userName, $userPhone, $userEmail);
     }
 }
