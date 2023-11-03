@@ -2,11 +2,14 @@
 require_once __DIR__ . '/../head.php';
 ?>
 <?php
+require_once __DIR__ . '/../admin-panel/user-modal.php';
+?>
+<?php
 require_once __DIR__ . '/../header.php';
 ?>
 
-<script src="/js/admin.js" async></script>
-<script src="/js/users.js" async></script>
+<script src="/js/admin/admin.js" async></script>
+
 
 <div class="content">
     <div class="content__block">
@@ -58,3 +61,4 @@ require_once __DIR__ . '/../header.php';
         </div>
     </div>
 </div>
+

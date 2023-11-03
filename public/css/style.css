@@ -1,3 +1,5 @@
+/* Основные */
+
 * {
     font-family: 'Autour One', cursive;
     box-sizing: border-box;
@@ -8,6 +10,7 @@
 a {
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 form > p, a,
@@ -15,19 +18,13 @@ h3 {
     color: #3C8EBC;
 }
 
-.header, form, label, .admin, .statistics,
+.header, form, label, .admin, .statistics, .wrapper, .back,
 input, .invalid, label > p, .line, .dashboard, .users {
     width: 100%;
 }
 
-.header {
-    background: #F4F8FF;
-    box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
-    height: 70px;
-}
-
 .header__nav, form, .content__main, .statistics > div,
-#user-list > div, #user-list > div > div, .dashboard,
+#user-list > div, #user-list > div > div, .dashboard, .wrapper,
 #pagination, #prev-page, #next-page, .statistics, .users {
     display: flex;
 }
@@ -38,8 +35,20 @@ input, .invalid, label > p, .line, .dashboard, .users {
 
 #prev-page, #next-page, .header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
-.dashboard {
+.dashboard, .wrapper {
     align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Header */
+
+.header {
+    background: #F4F8FF;
+    box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
+    height: 70px;
 }
 
 .statistics, .header__nav {
@@ -60,6 +69,8 @@ input, .invalid, label > p, .line, .dashboard, .users {
     margin: 0;
 }
 
+/* Формы */
+
 button, .edit-button, .delete-button {
     cursor: pointer;
 }
@@ -77,6 +88,15 @@ label {
     height: 60px;
 }
 
+.invalid, label > p {
+    color: red;
+    font-size: 8px;
+}
+
+label > p {
+    margin-top: 3px;
+}
+
 form > p {
     margin: 20px 0 30px 0;
 }
@@ -89,16 +109,16 @@ input, .invalid, label > p {
     padding: 0 10px;
 }
 
-input, .reg-button, .login_button {
+input, .reg-button, .login_button, .save-button{
     height: 40px;
 }
 
-input, .reg-button, .login_button {
+input, .reg-button, .login_button, .save-button {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
-.reg-button, .login_button {
+.reg-button, .login_button, .save-button {
     background-color: #3C8EBC;
     width: 60%;
     color: white;
@@ -106,33 +126,15 @@ input, .reg-button, .login_button {
     margin-top: 20px;
 }
 
+/* Error page */
+
 .error__page {
     text-align: center;
     font-size: 40px;
     margin-top: 20px;
 }
 
-.admin {
-    text-align: center;
-    padding: 30px;
-}
-
-.hidden {
-    display: none;
-}
-
-.disabled-color {
-    border-color: #bbb !important;
-}
-
-.invalid, label > p {
-    color: red;
-    font-size: 8px;
-}
-
-label > p {
-    margin-top: 3px;
-}
+/* Content */
 
 .content {
     max-width: 1000px;
@@ -150,7 +152,7 @@ label > p {
     margin-right: 30px;
 }
 
-.content__panel, .article, .content__main {
+.content__panel, .article, .content__main, .modal_form {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
@@ -180,6 +182,13 @@ label > p {
 
 .content__main {
     padding: 30px 20px;
+}
+
+/* Admin panel */
+
+.admin {
+    text-align: center;
+    padding: 30px;
 }
 
 .users {
@@ -226,10 +235,13 @@ label > p {
     color: #868686;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .close-button {
     background-size: cover;
     width: 20px;
     height: 20px;
+}
+
+.edit-button, .delete-button {
     margin-left: 10px;
 }
 
@@ -237,7 +249,7 @@ label > p {
     background-image: url("../images/edit.png");
 }
 
-.delete-button {
+.delete-button, .close-button {
     background-image: url("../images/delete.png");
 }
 
@@ -259,4 +271,60 @@ label > p {
     margin-left: 10px;
     border-right: 2px solid #3C8EBC;
     transform: rotate(45deg);
+}
+
+.disabled-color {
+    border-color: #bbb !important;
+}
+
+/* Модальное окно user */
+
+.wrapper, .back {
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+
+.back {
+    background-color: #3c8ebc42;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.modal_form {
+    position: relative;
+    z-index: 3;
+    background-color: white;
+    max-width: 400px;
+    min-height: 350px;
+    padding: 60px 30px 40px 30px;
+}
+
+.id {
+    display: none;
+    height: 0;
+}
+
+.messages {
+    height: 15px;
+}
+
+.success {
+    font-size: 10px;
+    color: green;
+    opacity: 0;
+    animation: fadeIn 1ms ease-in-out 1ms forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
