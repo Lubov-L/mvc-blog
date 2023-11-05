@@ -10,7 +10,6 @@ require_once __DIR__ . '/../header.php';
 
 <script src="/js/admin/admin.js" async></script>
 
-
 <div class="content">
     <div class="content__block">
         <div class="content__panel">
