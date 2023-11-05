@@ -12,6 +12,7 @@
                 <?php if ( $_SESSION['role'] === 'admin') { ?>
                     <a class="nav__link" href="/admin-panel">admin panel</a>
                 <?php } ?>
+                <a class="nav__link" href="/news">news</a>
                 <a class="nav__link" href="/logout">logout</a>
             </div> <?php } ?>
     </div>
