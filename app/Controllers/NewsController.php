@@ -2,7 +2,6 @@
 
 namespace MvcBlog\App\Controllers;
 
-use Exception;
 use MvcBlog\App\Models\NewsModel;
 use MvcBlog\App\View;
 
@@ -10,24 +9,47 @@ class NewsController
 {
     public static function index(): string
     {
-        return View::view('news', ['title' => 'News']);
+        $isAdmin = false;
+
+        if (isset($_SESSION['role'])) {
+            $isAdmin = $_SESSION['role'] === 'admin';
+        }
+
+        return View::view('news', ['title' => 'News', 'isAdmin' => $isAdmin]);
     }
 
     /**
      * Создание новости
      */
-    public static function createNews(): string
+    public static function create(): string
     {
-        try {
-            $news = new NewsModel();
+        $body = file_get_contents('php://input');
 
-            var_dump($_POST); die();
-            $news->crateNews($_POST);
-        } catch (Exception) {
-            return View::view('errors', ['error' => 'Error creating news']);
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
         }
-        // Редирект на страницу news
-        header('Location: /news');
-        die();
+
+        if (empty($requestData["title"]) || empty($requestData["content"])) {
+            return json_encode(['success' => false, 'error' => 'Title and content must not be empty']);
+        }
+
+        $news = new NewsModel();
+        $news->crateNews($requestData["title"], $requestData["content"]);
+
+        return json_encode(['success' => true]);
+    }
+
+    public static function list(): false|string
+    {
+        $news = new NewsModel();
+        $news = $news->list();
+
+        $data = [
+            'news' => $news
+        ];
+
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 }
