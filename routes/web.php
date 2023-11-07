@@ -17,6 +17,5 @@ return [
         '/' => [MainController::class, 'test'],
         '/create-user' => [MainController::class, 'createUser'],
         '/login' => [MainController::class, 'auth'],
-        '/create-news' => [NewsController::class, 'createNews'],
     ]
 ];
