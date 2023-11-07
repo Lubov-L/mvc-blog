@@ -14,22 +14,23 @@ a {
 }
 
 form > p, a,
-h3, .modal_news > label {
+h3, .modal_news > label, .news-item > div:last-child {
     color: #3C8EBC;
 }
 
-.header, form, label, .admin, .statistics, .wrapper, .back, #context,
+.header, form, label, .admin, .statistics, .wrapper, .back, #content,
 input, .invalid, label > p, .line, .dashboard, .users, .content__news {
     width: 100%;
 }
 
-.header__nav, .wrapper, .back, .modal_news, #context  {
+.header__nav, .wrapper, .back, .modal_news, #content  {
     height: 100%;
 }
 
 .header__nav, form, .content__main, .statistics > div,
 #user-list > div, #user-list > div > div, .dashboard, .wrapper,
-#pagination, #prev-page, #next-page, .statistics, .users, .content__news {
+#pagination, #prev-page, #next-page, .statistics, .users,
+.content__news, .news-top > div, .news-top, .news-item > div:last-child {
     display: flex;
 }
 
@@ -55,7 +56,8 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news {
     height: 70px;
 }
 
-.statistics, .header__nav {
+.statistics, .header__nav, .news-item > div:first-child,
+.news-item > div:last-child {
     justify-content: space-between;
 }
 
@@ -199,6 +201,9 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .line {
     border-bottom: 1px solid #3C8EBC;
+}
+
+.line, .news-item > div:last-child {
     margin: 15px 0;
 }
 
@@ -268,6 +273,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .edit-button, .delete-button {
     margin-left: 10px;
+    display: block;
 }
 
 .edit-button {
@@ -348,7 +354,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     height: 15px;
 }
 
-.success {
+.success, .error {
     font-size: 10px;
     color: green;
     opacity: 0;
@@ -386,4 +392,30 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .modal_news > input {
     margin-bottom: 30px;
+}
+
+.news-item {
+   border-bottom: 1px solid #3C8EBC;
+    max-width: 800px;
+    padding: 50px 0 20px 0;
+}
+
+.news-top {
+    margin-bottom: 20px;
+}
+
+.news-top > div {
+    /*display: none;*/
+}
+
+.news-date {
+    font-size: 8px;
+}
+
+.news-item > div:last-child {
+    font-size: 10px;
+}
+
+.more-button {
+    text-decoration: underline;
 }
