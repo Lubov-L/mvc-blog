@@ -49,7 +49,6 @@ class UserApiController extends ApiController
 
     public static function registration(): false|string
     {
-
         self::setHeader();
 
         $body = file_get_contents('php://input');

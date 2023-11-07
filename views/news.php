@@ -8,13 +8,14 @@ require_once __DIR__ . '/news-modal.php';
 require_once __DIR__ . '/header.php';
 ?>
 
+<script src="/js/admin/news.js" async></script>
+<script src="/js/main.js" async></script>
+
 <div class="content">
     <div class="content__news">
-        <?php if ( $_SESSION['role'] === 'admin') { ?>
+        <?php if ($params['isAdmin'] ?? false) { ?>
             <a class="create-news" href="/news">create</a>
         <?php } ?>
-        <div class="news__block">
-
-        </div>
+        <div class="news__block" data-isAdmin="<?= $params['isAdmin'] ?? false; ?>"></div>
     </div>
 </div>
