@@ -17,6 +17,7 @@ return [
     ],
     'DELETE' => [
         '/api/v1/user' => [UserApiController::class, 'delete'],
+        '/api/v1/news' => [NewsController::class, 'delete'],
     ],
     'PUT' => [
         '/api/v1/user' => [UserApiController::class, 'edit'],
