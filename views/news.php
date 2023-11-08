@@ -13,10 +13,10 @@ require_once __DIR__ . '/header.php';
 
 <div class="content">
     <div class="content__news">
-        <?php if ($params['isAdmin'] ?? false) { ?>
+        <?php if ($params['admin'] ?? false) { ?>
             <a class="create-news" href="/news">create</a>
         <?php } ?>
-        <div class="news__block" data-isAdmin="<?= $params['isAdmin'] ?? false; ?>"></div>
+        <div class="news__block" data-admin="<?= $params['admin'] ?? false; ?>"></div>
         <div id="pagination">
             <button id="prev-page">
             </button>

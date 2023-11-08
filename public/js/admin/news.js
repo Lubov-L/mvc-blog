@@ -100,10 +100,72 @@ window.addEventListener("load", async function () {
         countPage = data.countPage;
         displayNews(data.news);
         updateUI();
+        newsDelete();
     }
 
     await loadDataAndDisplay();
 });
+
+function newsDelete() {
+    const deleteButtons = document.querySelectorAll(".delete-button");
+    const wrapper = document.querySelector(".wrapper-delete");
+    const deleteModal = document.getElementById("delete-modal");
+    const confirmDeleteButton = document.getElementById("confirm-delete");
+    const cancelDeleteButton = document.getElementById("cancel-delete");
+
+    function handleClick(e) {
+        e.preventDefault();
+
+        const parentElement = this.closest("[data-id]");
+        const dataIdValue = parentElement.getAttribute("data-id");
+
+        wrapper.classList.remove("hidden");
+
+        cancelDeleteButton.addEventListener("click", () => {
+            wrapper.classList.add("hidden");
+        });
+
+        confirmDeleteButton.addEventListener("click", () => {
+            const jsonData = {};
+            let url = '/api/v1/news';
+
+            jsonData["id"] = dataIdValue;
+
+            let requestOptions = {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("An unexpected error occurred" + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data) {
+                        if (data.success === true) {
+                            wrapper.classList.add("hidden");
+                            location.reload();
+                        } else if (data.success === false) {
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("An error occurred:", error);
+                });
+        });
+    }
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", handleClick);
+    });
+}
+
 
 class Item {
     constructor(id, title, content, publication_date) {

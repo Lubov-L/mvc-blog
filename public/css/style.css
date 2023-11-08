@@ -19,18 +19,20 @@ h3, .modal_news > label, .news-item > div:last-child {
 }
 
 .header, form, label, .admin, .statistics, .wrapper, .back, #content,
-input, .invalid, label > p, .line, .dashboard, .users, .content__news {
+input, .invalid, label > p, .line, .dashboard, .users, .content__news,
+.news-item, .news__block, .wrapper-delete, .modal-actions {
     width: 100%;
 }
 
-.header__nav, .wrapper, .back, .modal_news, #content  {
+.header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete  {
     height: 100%;
 }
 
 .header__nav, form, .content__main, .statistics > div,
-#user-list > div, #user-list > div > div, .dashboard, .wrapper,
-#pagination, #prev-page, #next-page, .statistics, .users,
-.content__news, .news-top > div, .news-top, .news-item > div:last-child {
+#user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
+#pagination, #prev-page, #next-page, .statistics, .users, .news-item,
+.content__news, .news-top > div, .news-top, .news-item > div:last-child,
+.modal-actions {
     display: flex;
 }
 
@@ -40,7 +42,7 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news {
 
 #prev-page, #next-page, .header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
-.dashboard, .wrapper, .content__news {
+.dashboard, .wrapper, .content__news, .wrapper-delete {
     align-items: center;
 }
 
@@ -57,7 +59,7 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news {
 }
 
 .statistics, .header__nav, .news-item > div:first-child,
-.news-item > div:last-child {
+.news-item > div:last-child, .content__news, .modal-actions {
     justify-content: space-between;
 }
 
@@ -84,11 +86,11 @@ button, .edit-button, .delete-button {
     cursor: pointer;
 }
 
-.dashboard, .users, form {
+.dashboard, .users, form, .news-item {
     flex-direction: column;
 }
 
-form {
+form, .modal-actions {
     max-width: 300px;
     padding-top: 30px;
 }
@@ -222,7 +224,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     display: none;
 }
 
-#pagination, #prev-page, #next-page {
+#pagination, #prev-page, #next-page, .wrapper-delete {
     justify-content: center;
 }
 
@@ -308,13 +310,13 @@ input, textarea, .reg-button, .login_button, .save-button,
     border-color: #bbb !important;
 }
 
-/* Модальное окно user */
+/* Модальные окна */
 
-.wrapper {
+.wrapper, .wrapper-delete {
     padding: 20px;
 }
 
-.wrapper, .back {
+.wrapper, .back, .wrapper-delete {
     position: absolute;
     z-index: 2;
 }
@@ -333,7 +335,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     right: 10px;
 }
 
-.modal_form, .modal_news {
+.modal_form, .modal_news, #delete-modal {
     position: relative;
     z-index: 3;
     background-color: white;
@@ -341,7 +343,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     padding: 60px 30px 40px 30px;
 }
 
-.modal_form {
+.modal_form, #delete-modal {
     max-width: 400px;
 }
 
@@ -370,14 +372,24 @@ input, textarea, .reg-button, .login_button, .save-button,
     }
 }
 
+#delete-modal {
+    min-height: 100px;
+    padding: 20px 40px;
+}
+
 /* News block */
 
 .content__news {
     position: relative;
+    min-height: 670px;
 }
 
 .create-news {
     top: 15px;
+}
+
+.news__block {
+    max-width: 750px;
 }
 
 .create-news, .save-news {
@@ -397,15 +409,11 @@ input, textarea, .reg-button, .login_button, .save-button,
 .news-item {
    border-bottom: 1px solid #3C8EBC;
     max-width: 800px;
-    padding: 50px 0 20px 0;
 }
 
-.news-top {
-    margin-bottom: 20px;
-}
-
-.news-top > div {
-    /*display: none;*/
+.news-top,
+.content__news > div:last-child {
+    margin-top: 20px;
 }
 
 .news-date {

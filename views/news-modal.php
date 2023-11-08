@@ -10,3 +10,17 @@
         <button type="submit" class="save-news" onclick="createNews()">create</button>
     </form>
 </div>
+<div class="wrapper-delete hidden">
+    <div class="back"></div>
+    <div id="delete-modal">
+        <div class="modal-content">
+            <p>Are you sure you want to delete this news?</p>
+        </div>
+        <div class="modal-actions">
+            <a href="#" id="confirm-delete">yes</a>
+            <a href="#" id="cancel-delete">no</a>
+        </div>
+    </div>
+</div>
+
+
