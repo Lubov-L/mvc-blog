@@ -14,10 +14,19 @@ class NewsModel extends Model
         $query->execute(['title' => $title, 'content' => $content]);
     }
 
-    public function list(): ?array
+    public function newsCount()
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM news');
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM news');
+        $stmt->execute();
 
+        return $stmt->fetchColumn();
+    }
+
+    public function list(int $limit, int $offset = 0): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM news LIMIT :limit OFFSET :offset');
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
 
         $news = $stmt->fetchAll(PDO::FETCH_ASSOC);

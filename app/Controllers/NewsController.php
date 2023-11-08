@@ -43,11 +43,17 @@ class NewsController
 
     public static function list(): false|string
     {
-        $news = new NewsModel();
-        $news = $news->list();
+        $limit = 5;
+        $page = (int)($_GET['page'] ?? 1);
+        $offset = $limit * ($page - 1);
+
+        $newsModel = new NewsModel();
+        $news = $newsModel->list($limit, $offset);
 
         $data = [
-            'news' => $news
+            'news' => $news,
+            'count' => $newsModel->newsCount(),
+            'countPage' => (int)ceil($newsModel->newsCount() / $limit)
         ];
 
         return json_encode($data, JSON_UNESCAPED_UNICODE);

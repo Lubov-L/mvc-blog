@@ -1,10 +1,15 @@
 window.addEventListener("load", async function () {
-
     const newsBlock = document.querySelector(".news__block");
+    const prevButton = document.getElementById("prev-page");
+    const nextButton = document.getElementById("next-page");
+    const currentPageElement = document.getElementById("current-page");
 
-    async function loadData() {
+    let countPage;
+    let currentPage = 1;
+
+    async function loadData(page) {
         try {
-            const response = await fetch(`/api/v1/news/list`);
+            const response = await fetch(`/api/v1/news/list?page=${page}`);
             return await response.json();
         } catch (error) {
             console.error("Data error:", error);
@@ -22,7 +27,7 @@ window.addEventListener("load", async function () {
             const newsDate = document.createElement("p");
             const newsMore = document.createElement("a");
 
-            const dataValue = newsBlock.getAttribute("data-isadmin");
+            const dataValue = newsBlock.getAttribute("data-admin");
 
             newsElement.dataset.id = item.id;
 
@@ -33,7 +38,7 @@ window.addEventListener("load", async function () {
 
             newsTitle.textContent = item.title;
             newsContent.textContent = item.content.length > 250
-                ? item.content.slice(0, 250) + "..."
+                ? item.content.slice(0, 80) + "..."
                 : item.content;
             newsDate.textContent = item.publication_date;
             newsMore.textContent = "read more";
@@ -62,9 +67,39 @@ window.addEventListener("load", async function () {
             }
         });
     }
+
+    function updateUI() {
+        currentPageElement.textContent = String(currentPage);
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage >= countPage;
+
+        prevButton.classList.toggle("disabled-color", prevButton.disabled);
+        nextButton.classList.toggle("disabled-color", nextButton.disabled);
+    }
+
+    prevButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            loadDataAndDisplay();
+        }
+    });
+
+    nextButton.addEventListener("click", () => {
+        if (currentPage < countPage) {
+            currentPage++;
+            loadDataAndDisplay();
+        }
+    });
+
     async function loadDataAndDisplay() {
-        const newsData = await loadData();
-        displayNews(newsData.news);
+        const data = await loadData(currentPage);
+        const responseObject = new ResponseObject();
+        responseObject.page = data.page;
+        responseObject.countPage = data.countPage;
+
+        countPage = data.countPage;
+        displayNews(data.news);
+        updateUI();
     }
 
     await loadDataAndDisplay();
@@ -82,6 +117,8 @@ class Item {
 class ResponseObject {
     constructor() {
         this.news = [];
+        this.page = 0;
+        this.countPage = 0;
     }
 }
 
@@ -119,7 +156,6 @@ function createNew() {
         }
     }
 }
-
 
 function submitHandler(e) {
     e.preventDefault();

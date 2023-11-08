@@ -17,5 +17,11 @@ require_once __DIR__ . '/header.php';
             <a class="create-news" href="/news">create</a>
         <?php } ?>
         <div class="news__block" data-isAdmin="<?= $params['isAdmin'] ?? false; ?>"></div>
+        <div id="pagination">
+            <button id="prev-page">
+            </button>
+            <span id="current-page"></span>
+            <button id="next-page"></button>
+        </div>
     </div>
 </div>
