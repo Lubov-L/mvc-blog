@@ -9,13 +9,13 @@ class NewsController
 {
     public static function index(): string
     {
-        $isAdmin = false;
+        $admin = false;
 
         if (isset($_SESSION['role'])) {
-            $isAdmin = $_SESSION['role'] === 'admin';
+            $admin = $_SESSION['role'] === 'admin';
         }
 
-        return View::view('news', ['title' => 'News', 'isAdmin' => $isAdmin]);
+        return View::view('news', ['title' => 'News', 'admin' => $admin]);
     }
 
     /**
@@ -57,5 +57,23 @@ class NewsController
         ];
 
         return json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+
+    public static function delete(): false|string
+    {
+        $body = file_get_contents('php://input');
+
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $newsId = $requestData["id"];
+        $newsModel = new NewsModel();
+
+        $result = $newsModel->delete($newsId);
+
+        return json_encode(['success' => $result]);
     }
 }
