@@ -13,6 +13,10 @@ a {
     cursor: pointer;
 }
 
+textarea {
+    font-size: 13px;
+}
+
 form > p, a,
 h3, .modal_news > label, .news-item > div:last-child {
     color: #3C8EBC;
@@ -20,11 +24,14 @@ h3, .modal_news > label, .news-item > div:last-child {
 
 .header, form, label, .admin, .statistics, .wrapper, .back, #content,
 input, .invalid, label > p, .line, .dashboard, .users, .content__news,
-.news-item, .news__block, .wrapper-delete, .modal-actions {
+.news-item, .news__block, .wrapper-delete, .modal-actions, .back-delete,
+.wrapper-edit, .back-edit, #edit-content {
     width: 100%;
 }
 
-.header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete  {
+.header__nav, .wrapper, .back, .back-delete, .modal_news,
+#content, .wrapper-delete, .wrapper-edit, .modal_edit,
+.back-edit, #edit-content{
     height: 100%;
 }
 
@@ -32,7 +39,7 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 #user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
 #pagination, #prev-page, #next-page, .statistics, .users, .news-item,
 .content__news, .news-top > div, .news-top, .news-item > div:last-child,
-.modal-actions {
+.modal-actions, .messages, .wrapper-edit {
     display: flex;
 }
 
@@ -42,7 +49,8 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 
 #prev-page, #next-page, .header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
-.dashboard, .wrapper, .content__news, .wrapper-delete {
+.dashboard, .wrapper, .content__news, .wrapper-delete,
+.wrapper-edit {
     align-items: center;
 }
 
@@ -82,7 +90,8 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 
 /* Формы */
 
-button, .edit-button, .delete-button {
+button, .edit-button, .delete-button,
+.edit-news-button, .delete-news-button {
     cursor: pointer;
 }
 
@@ -124,28 +133,28 @@ input, .invalid, label > p {
     padding: 0 10px;
 }
 
-input, .reg-button, .login_button, .save-button,
-.save-news {
+input, .reg-button, .login_button, .submit-button,
+.save-button {
     min-height: 40px;
 }
 
-input, textarea, .reg-button, .login_button, .save-button,
-.create-news, .save-news {
+input, textarea, .reg-button, .login_button, .submit-button,
+.create-news, .save-button {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
-.reg-button, .login_button, .save-button {
+.reg-button, .login_button, .submit-button {
     width: 60%;
 }
 
-.reg-button, .login_button, .save-button,
-.save-news {
+.reg-button, .login_button, .submit-button,
+.save-button {
     margin-top: 20px;
 }
 
-.reg-button, .login_button, .save-button, 
-.create-news, .save-news {
+.reg-button, .login_button, .submit-button,
+.create-news, .save-button {
     background-color: #3C8EBC;
     color: white;
     text-transform: uppercase;
@@ -163,7 +172,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .content, .content__news {
     max-width: 1000px;
-    padding: 50px 30px;
+    padding: 40px 30px;
 }
 
 .content__block {
@@ -178,7 +187,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .content__panel, .article, .content__main, .modal_form,
-.content__news, .modal_news {
+.content__news, .modal_news, .modal_edit {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
@@ -224,7 +233,8 @@ input, textarea, .reg-button, .login_button, .save-button,
     display: none;
 }
 
-#pagination, #prev-page, #next-page, .wrapper-delete {
+#pagination, #prev-page, #next-page, .wrapper-delete,
+.wrapper-edit {
     justify-content: center;
 }
 
@@ -267,22 +277,25 @@ input, textarea, .reg-button, .login_button, .save-button,
     color: #868686;
 }
 
-.edit-button, .delete-button, .close-button {
+.edit-button, .delete-button, .close-button,
+.edit-news-button, .delete-news-button, .edit-close-button {
     background-size: cover;
     width: 20px;
     height: 20px;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button,
+.edit-news-button, .delete-news-button {
     margin-left: 10px;
     display: block;
 }
 
-.edit-button {
+.edit-button, .edit-news-button {
     background-image: url("../images/edit.png");
 }
 
-.delete-button, .close-button {
+.delete-button, .close-button, .delete-news-button,
+.edit-close-button {
     background-image: url("../images/delete.png");
 }
 
@@ -312,30 +325,32 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 /* Модальные окна */
 
-.wrapper, .wrapper-delete {
+.wrapper, .wrapper-delete, .wrapper-edit {
     padding: 20px;
 }
 
-.wrapper, .back, .wrapper-delete {
+.wrapper, .back, .wrapper-delete,
+.back-delete, .wrapper-edit, .back-edit {
     position: absolute;
     z-index: 2;
 }
 
-.back {
+.back, .back-delete, .back-edit {
     background-color: #3c8ebc42;
     left: 0;
 }
 
-.close-button, .create-news {
+.close-button, .create-news, .edit-close-button {
     position: absolute;
 }
 
-.close-button {
+.close-button, .edit-close-button {
     top: 10px;
     right: 10px;
 }
 
-.modal_form, .modal_news, #delete-modal {
+.modal_form, .modal_news,
+#delete-modal, .modal_edit {
     position: relative;
     z-index: 3;
     background-color: white;
@@ -353,7 +368,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .messages {
-    height: 15px;
+    height: 20px;
 }
 
 .success, .error {
@@ -377,32 +392,40 @@ input, textarea, .reg-button, .login_button, .save-button,
     padding: 20px 40px;
 }
 
+.submit-button, .edit-button {
+    max-width: 120px;
+}
+
 /* News block */
 
 .content__news {
     position: relative;
-    min-height: 670px;
+    min-height: 650px;
 }
 
 .create-news {
-    top: 15px;
+    top: -20px;
 }
 
 .news__block {
     max-width: 750px;
 }
 
-.create-news, .save-news {
+.create-news, .save-button {
     align-self: flex-end;
     padding: 10px 25px;
 }
 
-.modal_news {
+.modal_news, .modal_edit {
     max-width: 900px;
-    max-height: 600px;
+    max-height: 700px;
 }
 
-.modal_news > input {
+.modal_news > p {
+    display: none;
+}
+
+.modal_news > input, .modal_edit > input {
     margin-bottom: 30px;
 }
 
@@ -411,8 +434,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     max-width: 800px;
 }
 
-.news-top,
-.content__news > div:last-child {
+.news-top, #pagination {
     margin-top: 20px;
 }
 

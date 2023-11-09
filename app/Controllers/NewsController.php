@@ -38,12 +38,12 @@ class NewsController
         $news = new NewsModel();
         $news->crateNews($requestData["title"], $requestData["content"]);
 
-        return json_encode(['success' => true]);
+        return json_encode(['success' => true, 'message' => 'Saved!']);
     }
 
     public static function list(): false|string
     {
-        $limit = 5;
+        $limit = 10;
         $page = (int)($_GET['page'] ?? 1);
         $offset = $limit * ($page - 1);
 
@@ -75,5 +75,42 @@ class NewsController
         $result = $newsModel->delete($newsId);
 
         return json_encode(['success' => $result]);
+    }
+
+    public static function show(): false|string
+    {
+        $newsId = isset($_GET['id']) ? (int)$_GET['id'] : null;
+
+        if ($newsId === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $newsModel = new NewsModel();
+
+        $news = $newsModel->show($newsId);
+
+        if ($news === false) {
+            return json_encode(['success' => false, 'error' => 'News not found']);
+        }
+
+        return json_encode(['success' => true, 'news' => $news]);
+    }
+
+    public static function edit(): false|string
+    {
+        $body = file_get_contents('php://input');
+
+        $requestData = json_decode($body, true);
+
+        if ($requestData === null) {
+            return json_encode(['success' => false, 'error' => 'Invalid JSON data']);
+        }
+
+        $newsId = $requestData["id"];
+        $newsTitle = $requestData["title"];
+        $newsContent = $requestData["content"];
+        $newsModel = new NewsModel();
+
+        return $newsModel->edit($newsId, $newsTitle, $newsContent);
     }
 }

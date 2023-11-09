@@ -91,7 +91,6 @@ window.addEventListener("load", async function () {
 
 function userEdit() {
     const wrapper = document.querySelector(".wrapper");
-    const modal = document.querySelector(".modal_form");
     const back = document.querySelector(".back");
     const closeButton = document.querySelector(".close-button");
     const editButton = document.querySelectorAll(".edit-button");
@@ -118,8 +117,6 @@ function userEdit() {
         async function loadDataAndDisplay() {
 
             wrapper.classList.remove("hidden");
-            modal.classList.remove("hidden");
-            back.classList.remove("hidden");
 
             const data = await loadData(dataIdValue);
             const user = data.user;
@@ -139,7 +136,6 @@ function userEdit() {
 
     function closeModal() {
         wrapper.classList.toggle("hidden");
-        back.classList.toggle("hidden");
     }
 
     back.addEventListener("click", closeModal);
