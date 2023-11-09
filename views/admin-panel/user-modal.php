@@ -1,6 +1,6 @@
 <div class="wrapper hidden">
-    <div class="back hidden"></div>
-    <form action="" method="post" class="modal_form hidden">
+    <div class="back"></div>
+    <form action="" method="post" class="modal_form">
         <a class="close-button"></a>
         <label class="id" for="id">
             <input type="text" name="id" id="user-id">
