@@ -14,18 +14,25 @@ a {
 }
 
 form > p, a,
-h3 {
+h3, .modal_news > label, .news-item > div:last-child {
     color: #3C8EBC;
 }
 
-.header, form, label, .admin, .statistics, .wrapper, .back,
-input, .invalid, label > p, .line, .dashboard, .users {
+.header, form, label, .admin, .statistics, .wrapper, .back, #content,
+input, .invalid, label > p, .line, .dashboard, .users, .content__news,
+.news-item, .news__block, .wrapper-delete, .modal-actions {
     width: 100%;
 }
 
+.header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete  {
+    height: 100%;
+}
+
 .header__nav, form, .content__main, .statistics > div,
-#user-list > div, #user-list > div > div, .dashboard, .wrapper,
-#pagination, #prev-page, #next-page, .statistics, .users {
+#user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
+#pagination, #prev-page, #next-page, .statistics, .users, .news-item,
+.content__news, .news-top > div, .news-top, .news-item > div:last-child,
+.modal-actions {
     display: flex;
 }
 
@@ -35,7 +42,7 @@ input, .invalid, label > p, .line, .dashboard, .users {
 
 #prev-page, #next-page, .header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
-.dashboard, .wrapper {
+.dashboard, .wrapper, .content__news, .wrapper-delete {
     align-items: center;
 }
 
@@ -51,12 +58,12 @@ input, .invalid, label > p, .line, .dashboard, .users {
     height: 70px;
 }
 
-.statistics, .header__nav {
+.statistics, .header__nav, .news-item > div:first-child,
+.news-item > div:last-child, .content__news, .modal-actions {
     justify-content: space-between;
 }
 
 .header__nav {
-    height: 100%;
     max-width: 1000px;
     padding: 0 30px;
 }
@@ -69,17 +76,21 @@ input, .invalid, label > p, .line, .dashboard, .users {
     margin: 0;
 }
 
+.active {
+    text-decoration: underline;
+}
+
 /* Формы */
 
 button, .edit-button, .delete-button {
     cursor: pointer;
 }
 
-.dashboard, .users, form {
+.dashboard, .users, form, .news-item {
     flex-direction: column;
 }
 
-form {
+form, .modal-actions {
     max-width: 300px;
     padding-top: 30px;
 }
@@ -105,25 +116,39 @@ h3 {
     text-align: center;
 }
 
+textarea {
+    padding: 15px;
+}
+
 input, .invalid, label > p {
     padding: 0 10px;
 }
 
-input, .reg-button, .login_button, .save-button{
-    height: 40px;
+input, .reg-button, .login_button, .save-button,
+.save-news {
+    min-height: 40px;
 }
 
-input, .reg-button, .login_button, .save-button {
+input, textarea, .reg-button, .login_button, .save-button,
+.create-news, .save-news {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
 .reg-button, .login_button, .save-button {
-    background-color: #3C8EBC;
     width: 60%;
+}
+
+.reg-button, .login_button, .save-button,
+.save-news {
+    margin-top: 20px;
+}
+
+.reg-button, .login_button, .save-button, 
+.create-news, .save-news {
+    background-color: #3C8EBC;
     color: white;
     text-transform: uppercase;
-    margin-top: 20px;
 }
 
 /* Error page */
@@ -136,7 +161,7 @@ input, .reg-button, .login_button, .save-button {
 
 /* Content */
 
-.content {
+.content, .content__news {
     max-width: 1000px;
     padding: 50px 30px;
 }
@@ -152,11 +177,12 @@ input, .reg-button, .login_button, .save-button {
     margin-right: 30px;
 }
 
-.content__panel, .article, .content__main, .modal_form {
+.content__panel, .article, .content__main, .modal_form,
+.content__news, .modal_news {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
-.content__main, .statistics > div  {
+.content__main, .statistics > div, .content__news  {
     flex-direction: column;
 }
 
@@ -177,6 +203,9 @@ input, .reg-button, .login_button, .save-button {
 
 .line {
     border-bottom: 1px solid #3C8EBC;
+}
+
+.line, .news-item > div:last-child {
     margin: 15px 0;
 }
 
@@ -195,7 +224,7 @@ input, .reg-button, .login_button, .save-button {
     display: none;
 }
 
-#pagination, #prev-page, #next-page {
+#pagination, #prev-page, #next-page, .wrapper-delete {
     justify-content: center;
 }
 
@@ -210,6 +239,9 @@ input, .reg-button, .login_button, .save-button {
 
 .statistics > div > p {
     font-size: 22px;
+}
+
+.statistics > div > p {
     margin-bottom: 10px;
 }
 
@@ -243,6 +275,7 @@ input, .reg-button, .login_button, .save-button {
 
 .edit-button, .delete-button {
     margin-left: 10px;
+    display: block;
 }
 
 .edit-button {
@@ -277,31 +310,41 @@ input, .reg-button, .login_button, .save-button {
     border-color: #bbb !important;
 }
 
-/* Модальное окно user */
+/* Модальные окна */
 
-.wrapper, .back {
-    height: 100%;
+.wrapper, .wrapper-delete {
+    padding: 20px;
+}
+
+.wrapper, .back, .wrapper-delete {
     position: absolute;
     z-index: 2;
 }
 
 .back {
     background-color: #3c8ebc42;
+    left: 0;
+}
+
+.close-button, .create-news {
+    position: absolute;
 }
 
 .close-button {
-    position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.modal_form {
+.modal_form, .modal_news, #delete-modal {
     position: relative;
     z-index: 3;
     background-color: white;
-    max-width: 400px;
     min-height: 350px;
     padding: 60px 30px 40px 30px;
+}
+
+.modal_form, #delete-modal {
+    max-width: 400px;
 }
 
 .id {
@@ -313,7 +356,7 @@ input, .reg-button, .login_button, .save-button {
     height: 15px;
 }
 
-.success {
+.success, .error {
     font-size: 10px;
     color: green;
     opacity: 0;
@@ -327,4 +370,60 @@ input, .reg-button, .login_button, .save-button {
     100% {
         opacity: 1;
     }
+}
+
+#delete-modal {
+    min-height: 100px;
+    padding: 20px 40px;
+}
+
+/* News block */
+
+.content__news {
+    position: relative;
+    min-height: 670px;
+}
+
+.create-news {
+    top: 15px;
+}
+
+.news__block {
+    max-width: 750px;
+}
+
+.create-news, .save-news {
+    align-self: flex-end;
+    padding: 10px 25px;
+}
+
+.modal_news {
+    max-width: 900px;
+    max-height: 600px;
+}
+
+.modal_news > input {
+    margin-bottom: 30px;
+}
+
+.news-item {
+   border-bottom: 1px solid #3C8EBC;
+    max-width: 800px;
+}
+
+.news-top,
+.content__news > div:last-child {
+    margin-top: 20px;
+}
+
+.news-date {
+    font-size: 8px;
+}
+
+.news-item > div:last-child {
+    font-size: 10px;
+}
+
+.more-button {
+    text-decoration: underline;
 }

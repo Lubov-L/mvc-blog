@@ -8,8 +8,9 @@ require_once __DIR__ . '/../admin-panel/user-modal.php';
 require_once __DIR__ . '/../header.php';
 ?>
 
-<script src="/js/admin/admin.js" async></script>
-
+<script src="/js/admin/content.js" async></script>
+<script src="/js/admin/users.js" async></script>
+<script src="/js/main.js" async></script>
 
 <div class="content">
     <div class="content__block">

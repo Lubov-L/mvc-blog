@@ -5,7 +5,6 @@ document.querySelector(".login__form").addEventListener("submit", async function
     let formData = new FormData(form);
     let jsonData = {};
     let auth_password = document.querySelector('.auth_password');
-    let login_error = document.querySelector('.error');
     let unexpectedError = document.querySelector('.unexpected_error');
 
     formData.forEach(function (value, key) {
