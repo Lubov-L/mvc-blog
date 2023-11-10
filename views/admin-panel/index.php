@@ -32,16 +32,6 @@ require_once __DIR__ . '/../header.php';
                         <p id="count_users"></p>
                         users
                     </div>
-                    <div class="count_articles">
-                        <img src="/images/articles.jpg" alt="Articles">
-                        <p id="count_articles"></p>
-                        articles
-                    </div>
-                    <div class="count_comments">
-                        <img src="/images/comments.jpg" alt="Comments">
-                        <p id="count_comments"></p>
-                        comments
-                    </div>
                     <div class="count_news">
                         <img src="/images/news.jpg" alt="News">
                         <p id="count_news"></p>

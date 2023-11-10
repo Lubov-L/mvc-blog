@@ -19,8 +19,9 @@ window.addEventListener("load", function () {
 
 window.addEventListener("load", async function () {
     const countUsers = document.getElementById('count_users');
+    const countNews = document.getElementById('count_news');
 
-    let url = "/api/v1/users/list";
+    let url = "/api/v1/admin/stat";
 
     let requestOptions = {
         method: "GET",
@@ -35,7 +36,8 @@ window.addEventListener("load", async function () {
                 throw new Error("An unexpected error occurred" + response.status);
             }
             response.json().then(function (data) {
-                countUsers.textContent = data.count;
+                countUsers.textContent = data.users;
+                countNews.textContent = data.news;
             })
         });
 });

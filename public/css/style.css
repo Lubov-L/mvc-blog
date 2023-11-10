@@ -14,25 +14,27 @@ a {
 }
 
 form > p, a,
-h3, .modal_news > label, .news-item > div:last-child {
+h3, .modal_news > label, .news-item > div:last-child, .modal_edit > label {
     color: #3C8EBC;
 }
 
 .header, form, label, .admin, .statistics, .wrapper, .back, #content,
 input, .invalid, label > p, .line, .dashboard, .users, .content__news,
-.news-item, .news__block, .wrapper-delete, .modal-actions {
+.news-item, .news__block, .wrapper-delete, .modal-actions, .wrapper-edit,
+.back-edit, .back-delete, #edit-content {
     width: 100%;
 }
 
-.header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete  {
+.header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete,
+.back-edit, .back-delete, .wrapper-edit, .modal_edit, #edit-content,
+.wrapper-delete, .wrapper-edit {
     height: 100%;
 }
 
-.header__nav, form, .content__main, .statistics > div,
+.header__nav, form, .content__main, .statistics > div, .wrapper-edit,
 #user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
-#pagination, #prev-page, #next-page, .statistics, .users, .news-item,
-.content__news, .news-top > div, .news-top, .news-item > div:last-child,
-.modal-actions {
+#pagination, .statistics, .users, .news-item, .content__news, .news-top > div,
+.news-top, .news-item > div:last-child, .modal-actions, #pagination-container {
     display: flex;
 }
 
@@ -40,9 +42,10 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
     margin: 0 auto;
 }
 
-#prev-page, #next-page, .header__nav, form, .users,
+.header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
-.dashboard, .wrapper, .content__news, .wrapper-delete {
+.dashboard, .wrapper, .content__news, .wrapper-delete,
+.wrapper-edit {
     align-items: center;
 }
 
@@ -58,7 +61,7 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
     height: 70px;
 }
 
-.statistics, .header__nav, .news-item > div:first-child,
+.header__nav, .news-item > div:first-child,
 .news-item > div:last-child, .content__news, .modal-actions {
     justify-content: space-between;
 }
@@ -82,7 +85,8 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 
 /* Формы */
 
-button, .edit-button, .delete-button {
+button, .edit-button, .delete-button, .edit-news-button,
+.delete-news-button {
     cursor: pointer;
 }
 
@@ -125,27 +129,29 @@ input, .invalid, label > p {
 }
 
 input, .reg-button, .login_button, .save-button,
-.save-news {
+.save-news, .submit-button, .save-button {
     min-height: 40px;
 }
 
 input, textarea, .reg-button, .login_button, .save-button,
-.create-news, .save-news {
+.create-news, .save-news, .pagination-item, .submit-button,
+.save-button {
     border: 1px solid #3C8EBC;
     border-radius: 5px;
 }
 
-.reg-button, .login_button, .save-button {
+.reg-button, .login_button, .save-button, .submit-button,
+.save-button {
     width: 60%;
 }
 
 .reg-button, .login_button, .save-button,
-.save-news {
+.save-news, .submit-button, .save-button {
     margin-top: 20px;
 }
 
-.reg-button, .login_button, .save-button, 
-.create-news, .save-news {
+.reg-button, .login_button, .save-button, .submit-button,
+.create-news, .save-news, .pagination-item, .save-button {
     background-color: #3C8EBC;
     color: white;
     text-transform: uppercase;
@@ -178,11 +184,11 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .content__panel, .article, .content__main, .modal_form,
-.content__news, .modal_news {
+.content__news, .modal_news, .modal_edit {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
-.content__main, .statistics > div, .content__news  {
+.content__main, .statistics > div, .content__news {
     flex-direction: column;
 }
 
@@ -224,12 +230,13 @@ input, textarea, .reg-button, .login_button, .save-button,
     display: none;
 }
 
-#pagination, #prev-page, #next-page, .wrapper-delete {
+#pagination, .wrapper-delete, .wrapper-edit {
     justify-content: center;
 }
 
 .statistics {
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .statistics > div > img {
@@ -267,43 +274,27 @@ input, textarea, .reg-button, .login_button, .save-button,
     color: #868686;
 }
 
-.edit-button, .delete-button, .close-button {
+.edit-button, .delete-button, .close-button,
+.edit-news-button, .delete-news-button,
+.edit-close-button {
     background-size: cover;
     width: 20px;
     height: 20px;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .edit-news-button,
+.delete-news-button {
     margin-left: 10px;
     display: block;
 }
 
-.edit-button {
+.edit-button, .edit-news-button {
     background-image: url("../images/edit.png");
 }
 
-.delete-button, .close-button {
+.delete-button, .close-button, .delete-news-button,
+.edit-close-button {
     background-image: url("../images/delete.png");
-}
-
-#prev-page, #next-page {
-    width: 12px;
-    height: 12px;
-    border: none;
-    border-top: 2px solid #3C8EBC;
-    background-color: white;
-}
-
-#prev-page {
-    transform: rotate(-45deg);
-    margin-right: 10px;
-    border-left: 2px solid #3C8EBC;
-}
-
-#next-page {
-    margin-left: 10px;
-    border-right: 2px solid #3C8EBC;
-    transform: rotate(45deg);
 }
 
 .disabled-color {
@@ -312,30 +303,31 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 /* Модальные окна */
 
-.wrapper, .wrapper-delete {
+.wrapper, .wrapper-delete, .wrapper-edit {
     padding: 20px;
 }
 
-.wrapper, .back, .wrapper-delete {
+.wrapper, .back, .wrapper-delete, .wrapper-edit,
+.back-edit, .back-delete {
     position: absolute;
     z-index: 2;
 }
 
-.back {
+.back, .back-edit, .back-delete {
     background-color: #3c8ebc42;
     left: 0;
 }
 
-.close-button, .create-news {
+.close-button, .create-news, .edit-close-button {
     position: absolute;
 }
 
-.close-button {
+.close-button, .edit-close-button {
     top: 10px;
     right: 10px;
 }
 
-.modal_form, .modal_news, #delete-modal {
+.modal_form, .modal_news, #delete-modal, .modal_edit {
     position: relative;
     z-index: 3;
     background-color: white;
@@ -385,7 +377,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .create-news {
-    top: 15px;
+    top: -20px;
 }
 
 .news__block {
@@ -397,17 +389,18 @@ input, textarea, .reg-button, .login_button, .save-button,
     padding: 10px 25px;
 }
 
-.modal_news {
+.modal_news, .modal_edit {
     max-width: 900px;
-    max-height: 600px;
+    max-height: 700px;
+    padding: 30px;
 }
 
-.modal_news > input {
+.modal_news > input, .modal_edit > input {
     margin-bottom: 30px;
 }
 
 .news-item {
-   border-bottom: 1px solid #3C8EBC;
+    border-bottom: 1px solid #3C8EBC;
     max-width: 800px;
 }
 
@@ -426,4 +419,28 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .more-button {
     text-decoration: underline;
+}
+
+.submit-button, .save-button {
+    max-width: 150px;
+    align-self: end;
+}
+
+#pagination-container {
+    align-items: flex-end;
+}
+
+.pagination-item {
+    margin: 0 3px;
+    padding: 5px 10px;
+}
+
+.active-pagination {
+    background-color: white;
+    color: #3C8EBC;
+}
+
+.pagination-dot {
+    letter-spacing: 3px;
+    margin-left: 3px;
 }
