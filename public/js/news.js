@@ -34,7 +34,7 @@ window.addEventListener("load", async function () {
             newsMore.classList.add("more-button");
 
             newsTitle.textContent = item.title;
-            newsContent.textContent = item.content.length > 250 ? item.content.slice(0, 80) + "..." : item.content;
+            newsContent.textContent = item.content.length > 150 ? item.content.slice(0, 150) + "..." : item.content;
             newsDate.textContent = item.publication_date;
             newsMore.textContent = "read more";
 
