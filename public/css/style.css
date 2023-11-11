@@ -314,15 +314,25 @@ input, textarea, .reg-button, .login_button, .save-button,
     z-index: 2;
 }
 
+.back-read, .wrapper, .wrapper-delete, .wrapper-edit,
+.wrapper-read {
+    position: fixed;
+}
+
 .wrapper, .wrapper-delete, .wrapper-edit, .wrapper-read {
     padding: 20px;
     overflow: hidden;
-    position: fixed;
+}
+
+.wrapper-read {
+    overflow: auto;
+    align-items: flex-start;
 }
 
 .back, .back-edit, .back-delete, .back-read {
     background-color: #3c8ebc42;
     left: 0;
+    top: 0;
 }
 
 .close-button, .create-news, .edit-close-button {
@@ -384,6 +394,10 @@ input, textarea, .reg-button, .login_button, .save-button,
     align-self: flex-end;
 }
 
+.read-content {
+    top: 5%;
+}
+
 /* News block */
 
 .content__news {
@@ -410,11 +424,11 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .modal_news, .modal_edit, .read-content {
     max-width: 900px;
-    max-height: 700px;
     padding: 30px;
 }
 
-.modal_news > input, .modal_edit > input, .read-title {
+.modal_news > input, .modal_edit > input, .read-title,
+.read-content {
     margin-bottom: 30px;
 }
 
