@@ -1,3 +1,14 @@
+<!--Модальное окно для чтения новостей-->
+<div class="wrapper-read hidden">
+    <div class="back-read"></div>
+    <div class="read-content">
+        <a class="close-button"></a>
+        <p class="read-id"></p>
+        <h4 class="read-title"></h4>
+        <p class="read-text"></p>
+        <p class="read-date"></p>
+    </div>
+</div>
 <!--Модальное окно для создания новостей-->
 <div class="wrapper hidden">
     <div class="back"></div>
