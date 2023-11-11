@@ -56,7 +56,7 @@ class NewsModel extends Model
 
     public function show(int $id): array|bool
     {
-        $stmt = $this->pdo->prepare('SELECT id, title, content FROM news WHERE id = :id');
+        $stmt = $this->pdo->prepare('SELECT * FROM news WHERE id = :id');
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 

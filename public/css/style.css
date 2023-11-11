@@ -18,27 +18,29 @@ textarea {
 }
 
 form > p, a,
-h3, .modal_news > label, .news-item > div:last-child, .modal_edit > label {
+h3, .modal_news > label, .news-item > div:last-child,
+.modal_edit > label {
     color: #3C8EBC;
 }
 
 .header, form, label, .admin, .statistics, .wrapper, .back, #content,
 input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 .news-item, .news__block, .wrapper-delete, .modal-actions, .wrapper-edit,
-.back-edit, .back-delete, #edit-content {
+.back-edit, .back-delete, #edit-content, .wrapper-read, .back-read, .read-content {
     width: 100%;
 }
 
 .header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete,
 .back-edit, .back-delete, .wrapper-edit, .modal_edit, #edit-content,
-.wrapper-delete, .wrapper-edit {
+.wrapper-delete, .wrapper-edit, .wrapper-read, .back-read {
     height: 100%;
 }
 
 .header__nav, form, .content__main, .statistics > div, .wrapper-edit,
 #user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
 #pagination, .statistics, .users, .news-item, .content__news, .news-top > div,
-.news-top, .news-item > div:last-child, .modal-actions, #pagination-container {
+.news-top, .news-item > div:last-child, .modal-actions, #pagination-container,
+.wrapper-read, .read-content {
     display: flex;
 }
 
@@ -49,11 +51,11 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 .header__nav, form, .users,
 .content__main, #pagination, .statistics > div,
 .dashboard, .wrapper, .content__news, .wrapper-delete,
-.wrapper-edit {
+.wrapper-edit, .wrapper-read {
     align-items: center;
 }
 
-.hidden {
+.hidden, .read-id {
     display: none;
 }
 
@@ -65,7 +67,7 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
     height: 70px;
 }
 
-.header__nav, .news-item > div:first-child,
+.header__nav, .news-item > div:first-child, .read-content,
 .news-item > div:last-child, .content__news, .modal-actions {
     justify-content: space-between;
 }
@@ -94,7 +96,7 @@ button, .edit-button, .delete-button, .edit-news-button,
     cursor: pointer;
 }
 
-.dashboard, .users, form, .news-item {
+.dashboard, .users, form, .news-item, .read-content {
     flex-direction: column;
 }
 
@@ -188,7 +190,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .content__panel, .article, .content__main, .modal_form,
-.content__news, .modal_news, .modal_edit {
+.content__news, .modal_news, .modal_edit, .read-content {
     box-shadow: 0 4px 30px 0 rgba(48, 90, 171, 0.30);
 }
 
@@ -234,7 +236,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     display: none;
 }
 
-#pagination, .wrapper-delete, .wrapper-edit {
+#pagination, .wrapper-delete, .wrapper-edit, .wrapper-read {
     justify-content: center;
 }
 
@@ -307,18 +309,18 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 /* Модальные окна */
 .wrapper, .back, .wrapper-delete, .wrapper-edit,
-.back-edit, .back-delete {
+.back-edit, .back-delete, .wrapper-read, .back-read {
     position: absolute;
     z-index: 2;
 }
 
-.wrapper, .wrapper-delete, .wrapper-edit {
+.wrapper, .wrapper-delete, .wrapper-edit, .wrapper-read {
     padding: 20px;
     overflow: hidden;
     position: fixed;
 }
 
-.back, .back-edit, .back-delete {
+.back, .back-edit, .back-delete, .back-read {
     background-color: #3c8ebc42;
     left: 0;
 }
@@ -332,7 +334,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     right: 10px;
 }
 
-.modal_form, .modal_news, #delete-modal, .modal_edit {
+.modal_form, .modal_news, #delete-modal, .modal_edit, .read-content {
     position: relative;
     z-index: 3;
     background-color: white;
@@ -378,6 +380,10 @@ input, textarea, .reg-button, .login_button, .save-button,
     max-width: 120px;
 }
 
+.read-date {
+    align-self: flex-end;
+}
+
 /* News block */
 
 .content__news {
@@ -399,12 +405,16 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 .modal_news, .modal_edit {
+    max-height: 700px;
+}
+
+.modal_news, .modal_edit, .read-content {
     max-width: 900px;
     max-height: 700px;
     padding: 30px;
 }
 
-.modal_news > input, .modal_edit > input {
+.modal_news > input, .modal_edit > input, .read-title {
     margin-bottom: 30px;
 }
 
@@ -413,7 +423,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     max-width: 800px;
 }
 
-.news-top,
+.news-top, .read-date,
 .content__news > div:last-child {
     margin-top: 20px;
 }
@@ -422,7 +432,7 @@ input, textarea, .reg-button, .login_button, .save-button,
     font-size: 8px;
 }
 
-.news-item > div:last-child {
+.news-item > div:last-child, .read-date {
     font-size: 10px;
 }
 

@@ -139,6 +139,7 @@ window.addEventListener("load", async function () {
         countPage = data.countPage;
 
         displayNews(data.news);
+        readNews();
         showCreateModal();
         newsDelete();
         editNews();
@@ -148,3 +149,59 @@ window.addEventListener("load", async function () {
 
     await loadDataAndDisplay(currentPage);
 });
+
+/*
+* Чтение статьи
+*/
+function readNews() {
+    const readButton = document.querySelectorAll(".more-button");
+    const wrapper = document.querySelector(".wrapper-read");
+    const back = document.querySelector(".back-read");
+    const closeButton = document.querySelector(".close-button");
+    const id = document.querySelector(".read-id");
+    const title = document.querySelector(".read-title");
+    const content = document.querySelector(".read-text");
+    const date = document.querySelector(".read-date");
+
+    async function handleClick(e) {
+        e.preventDefault();
+
+        let parentElement = this.closest("[data-id]");
+        let dataIdValue = parentElement.getAttribute("data-id");
+
+        async function loadData(dataIdValue) {
+            try {
+                const response = await fetch(`/api/v1/news?id=${dataIdValue}`);
+                return await response.json();
+            } catch (error) {
+                console.error("Data error:", error);
+            }
+        }
+
+        async function loadDataAndDisplay() {
+            wrapper.classList.remove("hidden");
+
+            const data = await loadData(dataIdValue);
+            const item = data.news;
+
+            console.log(item);
+            id.textContent = item.id
+            title.textContent = item.title;
+            content.textContent = item.content;
+            date.textContent = item.publication_date;
+        }
+
+        await loadDataAndDisplay();
+    }
+
+    readButton.forEach(button => {
+        button.addEventListener("click", handleClick);
+    });
+
+    function closeModal() {
+        wrapper.classList.toggle("hidden");
+    }
+
+    back.addEventListener("click", closeModal);
+    closeButton.addEventListener("click", closeModal);
+}
