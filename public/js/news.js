@@ -109,20 +109,35 @@ window.addEventListener("load", async function () {
         }
     }
 
+    // Получение номера текущей страницы
+    function getCurrentPage() {
+        const storedPage = localStorage.getItem('currentPage');
+        return storedPage ? parseInt(storedPage) : 1;
+    }
+
+    // Сохранение текущей страницы в localStorage
+    function saveCurrentPage(page) {
+        localStorage.setItem('currentPage', page.toString());
+    }
+
     paginationContainer.addEventListener('click', function (event) {
         if (event.target.classList.contains('pagination-item') && !event.target.classList.contains('disabled')) {
             currentPage = parseInt(event.target.textContent);
+            saveCurrentPage(currentPage); // Сохранение страницы в localStorage
+            window.scrollTo(0, 0);
             loadDataAndDisplay();
         }
     });
 
     async function loadDataAndDisplay() {
+        currentPage = getCurrentPage();
+
         const data = await loadData(currentPage);
         const responseObject = new ResponseObject();
         responseObject.page = data.page;
         responseObject.countPage = data.countPage;
-
         countPage = data.countPage;
+
         displayNews(data.news);
         showCreateModal();
         newsDelete();
