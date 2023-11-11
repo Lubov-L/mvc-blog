@@ -25,7 +25,7 @@ class NewsModel extends Model
 
     public function list(int $limit, int $offset = 0): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM news 
+        $stmt = $this->pdo->prepare('SELECT id, title, LEFT(content, 155) AS content FROM news 
                                          ORDER BY publication_date DESC
                                          LIMIT :limit OFFSET :offset');
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
