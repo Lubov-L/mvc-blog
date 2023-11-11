@@ -38,7 +38,7 @@ class NewsController
         $news = new NewsModel();
         $news->crateNews($requestData["title"], $requestData["content"]);
 
-        return json_encode(['success' => true]);
+        return json_encode(['success' => true, 'message' => 'Saved!']);
     }
 
     public static function list(): false|string

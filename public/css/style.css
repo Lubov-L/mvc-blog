@@ -13,6 +13,10 @@ a {
     cursor: pointer;
 }
 
+textarea {
+    font-size: 13px;
+}
+
 form > p, a,
 h3, .modal_news > label, .news-item > div:last-child, .modal_edit > label {
     color: #3C8EBC;
@@ -22,12 +26,17 @@ h3, .modal_news > label, .news-item > div:last-child, .modal_edit > label {
 input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 .news-item, .news__block, .wrapper-delete, .modal-actions, .wrapper-edit,
 .back-edit, .back-delete, #edit-content {
+.news-item, .news__block, .wrapper-delete, .modal-actions, .back-delete,
+.wrapper-edit, .back-edit, #edit-content {
     width: 100%;
 }
 
 .header__nav, .wrapper, .back, .modal_news, #content, .wrapper-delete,
 .back-edit, .back-delete, .wrapper-edit, .modal_edit, #edit-content,
 .wrapper-delete, .wrapper-edit {
+.header__nav, .wrapper, .back, .back-delete, .modal_news,
+#content, .wrapper-delete, .wrapper-edit, .modal_edit,
+.back-edit, #edit-content{
     height: 100%;
 }
 
@@ -35,6 +44,9 @@ input, .invalid, label > p, .line, .dashboard, .users, .content__news,
 #user-list > div, #user-list > div > div, .dashboard, .wrapper, .wrapper-delete,
 #pagination, .statistics, .users, .news-item, .content__news, .news-top > div,
 .news-top, .news-item > div:last-child, .modal-actions, #pagination-container {
+#pagination, #prev-page, #next-page, .statistics, .users, .news-item,
+.content__news, .news-top > div, .news-top, .news-item > div:last-child,
+.modal-actions, .messages, .wrapper-edit {
     display: flex;
 }
 
@@ -169,7 +181,7 @@ input, textarea, .reg-button, .login_button, .save-button,
 
 .content, .content__news {
     max-width: 1000px;
-    padding: 50px 30px;
+    padding: 40px 30px;
 }
 
 .content__block {
@@ -368,6 +380,10 @@ input, textarea, .reg-button, .login_button, .save-button,
 #delete-modal {
     min-height: 100px;
     padding: 20px 40px;
+}
+
+.submit-button, .edit-button {
+    max-width: 120px;
 }
 
 /* News block */
