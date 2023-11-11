@@ -72,6 +72,7 @@ function submitNews(e) {
                     wrapperModal.classList.toggle("hidden");
                     alert("Submit!");
                     form.reset();
+                    location.reload();
                 } else {
                     showMessage("error", data.message);
                 }
