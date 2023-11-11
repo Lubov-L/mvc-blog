@@ -27,7 +27,7 @@ class Routing
             if (str_contains($uri, '/api')) {
                 echo ErrorController::apiNotFound();
             } else {
-                echo ErrorController::notFound();
+                ErrorController::notFound();
             }
             die();
         }
@@ -36,7 +36,7 @@ class Routing
             if (str_contains($uri, '/api')) {
                 echo ErrorController::apiNotFound();
             } else {
-                echo ErrorController::notFound();
+                ErrorController::notFound();
             }
             die();
         }

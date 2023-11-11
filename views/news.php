@@ -8,8 +8,10 @@ require_once __DIR__ . '/news-modal.php';
 require_once __DIR__ . '/header.php';
 ?>
 
-<script src="/js/admin/news.js" async></script>
+<script src="/js/news.js" async></script>
 <script src="/js/main.js" async></script>
+<script src="/js/news-constructor.js" async></script>
+<script src="/js/admin/news.js" async></script>
 
 <div class="content">
     <div class="content__news">
@@ -17,11 +19,6 @@ require_once __DIR__ . '/header.php';
             <a class="create-news" href="/news">create</a>
         <?php } ?>
         <div class="news__block" data-admin="<?= $params['admin'] ?? false; ?>"></div>
-        <div id="pagination">
-            <button id="prev-page">
-            </button>
-            <span id="current-page"></span>
-            <button id="next-page"></button>
-        </div>
+        <div id="pagination-container"></div>
     </div>
 </div>

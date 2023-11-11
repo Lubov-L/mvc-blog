@@ -10,11 +10,6 @@ use MvcBlog\App\View;
 
 class MainController
 {
-    public static function index(): string
-    {
-        return View::view('app', ['title' => 'Blog']);
-    }
-
     public static function login(): string
     {
         return View::view('login', ['title' => 'Login']);
@@ -25,7 +20,8 @@ class MainController
         return View::view('registration', ['title' => 'Registration']);
     }
 
-    #[NoReturn] public static function logout(): void
+    #[NoReturn]
+    public static function logout(): void
     {
         $_SESSION = [];
         session_destroy();
@@ -44,7 +40,12 @@ class MainController
 
             $passwordHash = password_hash($userEntity->getPassword(), PASSWORD_DEFAULT);
 
-            $user->registration($userEntity->getName(), $userEntity->getPhone(), $userEntity->getEmail(), $passwordHash);
+            $user->registration(
+                $userEntity->getName(),
+                $userEntity->getPhone(),
+                $userEntity->getEmail(),
+                $passwordHash
+            );
         } catch (Exception) {
             return View::view('errors', ['error' => 'Error creating user']);
         }

@@ -6,12 +6,11 @@ use MvcBlog\App\Controllers\NewsController;
 
 return [
     'GET' => [
-        '/' => [MainController::class, 'index'],
         '/login' => [MainController::class, 'login'],
         '/registration' => [MainController::class, 'registration'],
         '/logout' => [MainController::class, 'logout'],
         '/admin-panel' => [AdminPanelController::class, 'index'],
-        '/news' => [NewsController::class, 'index'],
+        '/' => [NewsController::class, 'index'],
     ],
     'POST' => [
         '/' => [MainController::class, 'test'],
