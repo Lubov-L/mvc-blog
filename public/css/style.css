@@ -302,15 +302,16 @@ input, textarea, .reg-button, .login_button, .save-button,
 }
 
 /* Модальные окна */
-
-.wrapper, .wrapper-delete, .wrapper-edit {
-    padding: 20px;
-}
-
 .wrapper, .back, .wrapper-delete, .wrapper-edit,
 .back-edit, .back-delete {
     position: absolute;
     z-index: 2;
+}
+
+.wrapper, .wrapper-delete, .wrapper-edit {
+    padding: 20px;
+    overflow: hidden;
+    position: fixed;
 }
 
 .back, .back-edit, .back-delete {
