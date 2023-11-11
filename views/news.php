@@ -11,10 +11,7 @@ require_once __DIR__ . '/header.php';
 <script src="/js/news.js" async></script>
 <script src="/js/main.js" async></script>
 <script src="/js/news-constructor.js" async></script>
-
-<?php if ($params['admin'] ?? false) { ?>
-    <script src="/js/admin/news.js" async></script>
-<?php } ?>
+<script src="/js/admin/news.js" async></script>
 
 <div class="content">
     <div class="content__news">
