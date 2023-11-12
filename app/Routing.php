@@ -3,6 +3,7 @@
 namespace MvcBlog\App;
 
 use MvcBlog\App\Controllers\ErrorController;
+use MvcBlog\App\Enum\Role;
 
 class Routing
 {
@@ -20,6 +21,7 @@ class Routing
         }
 
         $class = $routing[$method][$path][0] ?? null;
+        $accessRole = $routing[$method][$path][2] ?? 'guest';
         $method = $routing[$method][$path][1] ?? null;
 
 
@@ -39,6 +41,13 @@ class Routing
                 ErrorController::notFound();
             }
             die();
+        }
+
+        $_SESSION['role'] ??= 'guest';
+
+        if ($accessRole === Role::ADMIN->value && $_SESSION['role'] !== Role::ADMIN->value) {
+            http_response_code(403);
+            return;
         }
 
         if (str_contains($uri, '/api')) {

@@ -3,18 +3,18 @@
 use MvcBlog\App\Controllers\AdminPanelController;
 use MvcBlog\App\Controllers\MainController;
 use MvcBlog\App\Controllers\NewsController;
+use MvcBlog\App\Enum\Role;
 
 return [
     'GET' => [
         '/login' => [MainController::class, 'login'],
         '/registration' => [MainController::class, 'registration'],
         '/logout' => [MainController::class, 'logout'],
-        '/admin-panel' => [AdminPanelController::class, 'index'],
+        '/admin-panel' => [AdminPanelController::class, 'index', Role::ADMIN->value],
         '/' => [NewsController::class, 'index'],
     ],
     'POST' => [
-        '/' => [MainController::class, 'test'],
-        '/create-user' => [MainController::class, 'createUser'],
+        '/create-user' => [MainController::class, 'createUser', Role::ADMIN->value],
         '/login' => [MainController::class, 'auth'],
     ]
 ];
