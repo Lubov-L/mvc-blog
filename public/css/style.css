@@ -236,7 +236,8 @@ input, textarea, .reg-button, .login_button, .save-button,
     display: none;
 }
 
-#pagination, .wrapper-delete, .wrapper-edit, .wrapper-read {
+#pagination, .wrapper-delete, .wrapper-edit, .wrapper-read,
+.users {
     justify-content: center;
 }
 
@@ -457,6 +458,10 @@ input, textarea, .reg-button, .login_button, .save-button,
 .submit-button, .save-button {
     max-width: 150px;
     align-self: end;
+}
+
+.modal_form > .save-button {
+    align-self: center;
 }
 
 #pagination-container {

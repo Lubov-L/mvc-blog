@@ -42,12 +42,7 @@ require_once __DIR__ . '/../header.php';
             <div class="users">
                 <h3>USERS</h3>
                 <div id="user-list"></div>
-                <div id="pagination">
-                    <button id="prev-page">
-                    </button>
-                    <span id="current-page"></span>
-                    <button id="next-page"></button>
-                </div>
+                <div id="pagination-container"></div>
             </div>
         </div>
     </div>

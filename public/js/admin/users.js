@@ -1,12 +1,9 @@
 window.addEventListener("load", async function () {
 
     const userList = document.getElementById("user-list");
-    const prevButton = document.getElementById("prev-page");
-    const nextButton = document.getElementById("next-page");
-    const currentPageElement = document.getElementById("current-page");
-
     let countPage;
     let currentPage = 1;
+    const paginationContainer = document.getElementById('pagination-container');
 
     async function loadData(page) {
         try {
@@ -44,30 +41,79 @@ window.addEventListener("load", async function () {
         });
     }
 
-    function updateUI() {
-        currentPageElement.textContent = String(currentPage);
-        prevButton.disabled = currentPage === 1;
-        nextButton.disabled = currentPage >= countPage;
+    function generatePagination() {
+        paginationContainer.innerHTML = '';
 
-        prevButton.classList.toggle("disabled-color", prevButton.disabled);
-        nextButton.classList.toggle("disabled-color", nextButton.disabled);
+        if (countPage > 3) {
+            if (currentPage > 2) {
+                const firstPage = document.createElement('button');
+                const prevEllipsis = document.createElement('a');
+
+                firstPage.classList.add('pagination-item');
+                prevEllipsis.classList.add('pagination-dot', 'disabled');
+                prevEllipsis.textContent = '...';
+                firstPage.textContent = '1';
+                paginationContainer.appendChild(firstPage);
+                paginationContainer.appendChild(prevEllipsis);
+            }
+
+            if (currentPage <= countPage - 2) {
+                const nextEllipsis = document.createElement('a');
+                const lastPage = document.createElement('button');
+
+                for (let i = Math.max(1, currentPage - 1); i <= Math.min(countPage, currentPage + 1); i++) {
+                    const paginationItem = document.createElement('button');
+                    paginationItem.classList.add('pagination-item');
+                    if (i === currentPage) {
+                        paginationItem.classList.add('active-pagination');
+                    }
+                    paginationItem.textContent = i.toString();
+                    paginationContainer.appendChild(paginationItem);
+                }
+                nextEllipsis.classList.add('pagination-dot', 'disabled');
+                paginationContainer.appendChild(nextEllipsis);
+                nextEllipsis.textContent = '...';
+
+                lastPage.classList.add('pagination-item');
+                lastPage.textContent = countPage;
+                paginationContainer.appendChild(lastPage);
+            } else {
+                for (let i = Math.max(1, countPage - 2); i <= countPage; i++) {
+                    const paginationItem = document.createElement('button');
+                    paginationItem.classList.add('pagination-item');
+                    if (i === currentPage) {
+                        paginationItem.classList.add('active-pagination');
+                    }
+                    paginationItem.textContent = i.toString();
+                    paginationContainer.appendChild(paginationItem);
+                }
+            }
+        } else {
+            // Если количество страниц меньше или равно 3, создавать троеточие не нужно
+            for (let i = 1; i <= countPage; i++) {
+                const paginationItem = document.createElement('button');
+                paginationItem.classList.add('pagination-item');
+                if (i === currentPage) {
+                    paginationItem.classList.add('active-pagination');
+                }
+                paginationItem.textContent = i.toString();
+                paginationContainer.appendChild(paginationItem);
+            }
+        }
     }
 
-    prevButton.addEventListener("click", () => {
-        if (currentPage > 1) {
-            currentPage--;
-            loadDataAndDisplay();
-        }
-    });
-
-    nextButton.addEventListener("click", () => {
-        if (currentPage < countPage) {
-            currentPage++;
+    paginationContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('pagination-item') && !event.target.classList.contains('disabled')) {
+            currentPage = parseInt(event.target.textContent);
+            saveCurrentPage(currentPage); // Сохранение страницы в localStorage
+            window.scrollTo(0, 0);
             loadDataAndDisplay();
         }
     });
 
     async function loadDataAndDisplay() {
+        currentPage = getCurrentPage();
+
         const data = await loadData(currentPage);
         const responseObject = new ResponseObject();
         responseObject.page = data.page;
@@ -81,9 +127,9 @@ window.addEventListener("load", async function () {
         const users = data.users;
         countPage = data.countPage;
         displayUsers(users);
-        updateUI();
         userEdit();
         userDelete();
+        generatePagination();
     }
 
     await loadDataAndDisplay();
@@ -144,43 +190,55 @@ function userEdit() {
 
 function userDelete() {
     const deleteButtons = document.querySelectorAll(".delete-button");
+    const confirmDeleteButton = document.getElementById("confirm-delete");
+    const cancelDeleteButton = document.getElementById("cancel-delete");
+    const wrapper = document.querySelector(".wrapper-delete");
 
     function handleClick(e) {
         e.preventDefault();
+
+        wrapper.classList.remove("hidden");
 
         let parentElement = this.closest("[data-id]");
         let dataIdValue = parentElement.getAttribute("data-id");
         let jsonData = {};
 
-        let url = '/api/v1/user';
+        cancelDeleteButton.addEventListener("click", () => {
+            wrapper.classList.add("hidden");
+        });
 
-        jsonData["id"] = dataIdValue;
+        confirmDeleteButton.addEventListener("click", () => {
+            let url = '/api/v1/user';
 
-        let requestOptions = {
-            method: "DELETE", headers: {
-                "Content-Type": "application/json"
-            }, body: JSON.stringify(jsonData)
-        };
+            jsonData["id"] = dataIdValue;
 
-        fetch(url, requestOptions)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("An unexpected error occurred" + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data) {
-                    if (data.success === true) {
-                        return true;
-                    } else if (data.success === false) {
-                        return false;
+            let requestOptions = {
+                method: "DELETE", headers: {
+                    "Content-Type": "application/json"
+                }, body: JSON.stringify(jsonData)
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("An unexpected error occurred" + response.status);
                     }
-                }
-            })
-            .catch(error => {
-                console.error("An error occurred:", error);
-            });
+                    return response.json();
+                })
+                .then(data => {
+                    if (data) {
+                        if (data.success === true) {
+                            wrapper.classList.add("hidden");
+                            location.reload();
+                        } else if (data.success === false) {
+                            return false;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("An error occurred:", error);
+                });
+        });
     }
 
     deleteButtons.forEach(button => {
@@ -219,6 +277,8 @@ function save() {
                 if (data) {
                     if (data.success === true) {
                         showMessage("success", data.message);
+                        alert("Successfully saved!")
+                        location.reload();
                     } else {
                         showMessage("error", data.message);
                     }

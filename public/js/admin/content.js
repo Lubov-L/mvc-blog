@@ -4,16 +4,31 @@ window.addEventListener("load", function () {
     const dashboardBlock = document.querySelector(".dashboard");
     const usersBlock = document.querySelector(".users");
 
+    // Проверяем, есть ли сохраненное значение в localStorage
+    const activeTab = localStorage.getItem("activeTab");
+
+    // Если есть сохраненное значение и оно равно "users", отображаем блок пользователей
+    if (activeTab === "users") {
+        dashboardBlock.style.display = "none";
+        usersBlock.style.display = "flex";
+    }
+
     dashboardLink.addEventListener("click", function (e) {
         e.preventDefault();
         dashboardBlock.style.display = "block";
         usersBlock.style.display = "none";
+
+        // Сохраняем текущую вкладку в localStorage
+        localStorage.setItem("activeTab", "dashboard");
     });
 
     usersLink.addEventListener("click", function (e) {
         e.preventDefault();
         dashboardBlock.style.display = "none";
-        usersBlock.style.display = "block";
+        usersBlock.style.display = "flex";
+
+        // Сохраняем текущую вкладку в localStorage
+        localStorage.setItem("activeTab", "users");
     });
 });
 
