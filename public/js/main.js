@@ -1,3 +1,4 @@
+// Выведение ошибок в модальных окнах
 function showMessage(type, message) {
     let messageElement = document.createElement("div");
     messageElement.classList.add(type);
@@ -9,4 +10,15 @@ function showMessage(type, message) {
     }
 
     messagesContainer.appendChild(messageElement);
+}
+
+// Получение номера текущей страницы
+function getCurrentPage() {
+    const storedPage = localStorage.getItem('currentPage');
+    return storedPage ? parseInt(storedPage) : 1;
+}
+
+// Сохранение текущей страницы в localStorage
+function saveCurrentPage(page) {
+    localStorage.setItem('currentPage', page.toString());
 }
