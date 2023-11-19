@@ -72,7 +72,7 @@ function generatePagination(countPage, currentPage, paginationContainer, callbac
             }
         }
     } else {
-        // Если количество страниц меньше или равно 3, создавать троеточие не нужно
+        // Если количество страниц меньше или равно 3, создавать ... не нужно
         for (let i = 1; i <= countPage; i++) {
             const paginationItem = document.createElement('button');
             paginationItem.classList.add('pagination-item');
