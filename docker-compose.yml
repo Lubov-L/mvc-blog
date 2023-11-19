@@ -6,7 +6,7 @@ services:
     image: nginx:1.22
     restart: "no"
     ports:
-      - "80:80"
+      - "81:80"
     volumes:
       - .:/var/www/
       # конфигурация nginx
