@@ -19,20 +19,11 @@ RUN apt-get update && apt-get install -y \
     libfreetype6 libfreetype6-dev \
     locales \
     jpegoptim optipng pngquant gifsicle \
-    vim nano \
+    nano \
     zip unzip \
-    git \
     curl
 
-# Подключение xdebug
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
-
 RUN docker-php-ext-install opcache
-
-# Подключение redis
-RUN pecl install redis \
-    && docker-php-ext-enable redis
 
 # Расширения для работы с базой данных + gd конфигурация для работы captha
 RUN docker-php-ext-install pdo pdo_mysql mysqli
