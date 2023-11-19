@@ -147,7 +147,7 @@ function newsDelete() {
 }
 
 /*
-Редактированние новости
+Редактирование новости
  */
 function editNews() {
     if (document.querySelector(".edit-close-button")) {
@@ -202,7 +202,7 @@ function editNews() {
 }
 
 /*
-Сохрание редактированной новости
+Сохранение редактированной новости
  */
 function saveEditedNews() {
     if (document.querySelector(".modal_edit")) {

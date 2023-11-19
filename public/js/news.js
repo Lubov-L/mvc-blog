@@ -116,7 +116,6 @@ function readNews() {
             const data = await loadData(dataIdValue);
             const item = data.news;
 
-            console.log(item);
             id.textContent = item.id
             title.textContent = item.title;
             content.textContent = item.content;
