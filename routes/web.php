@@ -14,7 +14,7 @@ return [
         '/' => [NewsController::class, 'index'],
     ],
     'POST' => [
-        '/create-user' => [MainController::class, 'createUser', Role::ADMIN->value],
+        '/create-user' => [MainController::class, 'createUser'],
         '/login' => [MainController::class, 'auth'],
     ]
 ];
