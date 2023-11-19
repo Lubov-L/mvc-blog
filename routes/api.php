@@ -16,7 +16,7 @@ return [
     'POST' => [
         '/api/v1/login' => [UserApiController::class, 'auth'],
         '/api/v1/registration' => [UserApiController::class, 'registration'],
-        '/api/v1/create-news' => [NewsController::class, 'create', 'admin'],
+        '/api/v1/create-news' => [NewsController::class, 'create', Role::ADMIN->value],
     ],
     'DELETE' => [
         '/api/v1/user' => [UserApiController::class, 'delete', Role::ADMIN->value],

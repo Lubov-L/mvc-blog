@@ -1,4 +1,4 @@
-document.getElementById(".signUp__form").addEventListener("submit", async function (e) {
+document.querySelector(".signUp__form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     let form = document.querySelector(".signUp__form");
@@ -34,21 +34,23 @@ document.getElementById(".signUp__form").addEventListener("submit", async functi
             }
             response.json().then(function (data) {
                 if (data.success === true) {
-                    window.location.href = "/";
+                    window.location.href = "/login";
                 } else if (data.success === false) {
                     data.errors.forEach((error) => {
+                        let validationError = new ValidationError(error.field, error.error);
+
                         switch (error.field) {
                             case "name":
-                                displayError(name, error.error);
+                                displayError(name, validationError.error);
                                 break;
                             case "email":
-                                displayError(email, error.error);
+                                displayError(email, validationError.error);
                                 break;
                             case "password":
-                                displayError(password, error.error);
+                                displayError(password, validationError.error);
                                 break;
                             case "password2":
-                                displayError(password2, error.error);
+                                displayError(password2, validationError.error);
                                 break;
                         }
                     });
@@ -70,4 +72,9 @@ function displayError(element, message) {
     p.textContent = message;
     p.classList.add('error');
     element.appendChild(p);
+}
+
+function ValidationError(field, error) {
+    this.field = field;
+    this.error = error;
 }

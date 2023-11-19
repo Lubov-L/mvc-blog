@@ -9,7 +9,7 @@ class NewsModel extends Model
 {
     public function crateNews($title, $content): void
     {
-        $query = $this->pdo->prepare('INSERT INTO News (title, content)
+        $query = $this->pdo->prepare('INSERT INTO news (title, content)
                     VALUES (:title, :content)');
 
         $query->execute(['title' => $title, 'content' => $content]);

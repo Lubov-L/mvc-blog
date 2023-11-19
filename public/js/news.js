@@ -61,76 +61,6 @@ window.addEventListener("load", async function () {
         });
     }
 
-    function generatePagination() {
-        paginationContainer.innerHTML = '';
-
-        if (countPage > 3) {
-            if (currentPage > 2) {
-                const firstPage = document.createElement('button');
-                const prevEllipsis = document.createElement('a');
-
-                firstPage.classList.add('pagination-item');
-                prevEllipsis.classList.add('pagination-dot', 'disabled');
-                prevEllipsis.textContent = '...';
-                firstPage.textContent = '1';
-                paginationContainer.appendChild(firstPage);
-                paginationContainer.appendChild(prevEllipsis);
-            }
-
-            if (currentPage <= countPage - 2) {
-                const nextEllipsis = document.createElement('a');
-                const lastPage = document.createElement('button');
-
-                for (let i = Math.max(1, currentPage - 1); i <= Math.min(countPage, currentPage + 1); i++) {
-                    const paginationItem = document.createElement('button');
-                    paginationItem.classList.add('pagination-item');
-                    if (i === currentPage) {
-                        paginationItem.classList.add('active-pagination');
-                    }
-                    paginationItem.textContent = i.toString();
-                    paginationContainer.appendChild(paginationItem);
-                }
-                nextEllipsis.classList.add('pagination-dot', 'disabled');
-                paginationContainer.appendChild(nextEllipsis);
-                nextEllipsis.textContent = '...';
-
-                lastPage.classList.add('pagination-item');
-                lastPage.textContent = countPage;
-                paginationContainer.appendChild(lastPage);
-            } else {
-                for (let i = Math.max(1, countPage - 2); i <= countPage; i++) {
-                    const paginationItem = document.createElement('button');
-                    paginationItem.classList.add('pagination-item');
-                    if (i === currentPage) {
-                        paginationItem.classList.add('active-pagination');
-                    }
-                    paginationItem.textContent = i.toString();
-                    paginationContainer.appendChild(paginationItem);
-                }
-            }
-        } else {
-            // Если количество страниц меньше или равно 3, создавать троеточие не нужно
-            for (let i = 1; i <= countPage; i++) {
-                const paginationItem = document.createElement('button');
-                paginationItem.classList.add('pagination-item');
-                if (i === currentPage) {
-                    paginationItem.classList.add('active-pagination');
-                }
-                paginationItem.textContent = i.toString();
-                paginationContainer.appendChild(paginationItem);
-            }
-        }
-    }
-
-    paginationContainer.addEventListener('click', function (event) {
-        if (event.target.classList.contains('pagination-item') && !event.target.classList.contains('disabled')) {
-            currentPage = parseInt(event.target.textContent);
-            saveCurrentPage(currentPage); // Сохранение страницы в localStorage
-            window.scrollTo(0, 0);
-            loadDataAndDisplay();
-        }
-    });
-
     async function loadDataAndDisplay() {
         currentPage = getCurrentPage();
 
@@ -146,7 +76,7 @@ window.addEventListener("load", async function () {
         newsDelete();
         editNews();
         saveEditedNews();
-        generatePagination();
+        generatePagination(countPage, currentPage, paginationContainer, loadDataAndDisplay);
     }
 
     await loadDataAndDisplay(currentPage);
@@ -186,7 +116,6 @@ function readNews() {
             const data = await loadData(dataIdValue);
             const item = data.news;
 
-            console.log(item);
             id.textContent = item.id
             title.textContent = item.title;
             content.textContent = item.content;
@@ -206,4 +135,21 @@ function readNews() {
 
     back.addEventListener("click", closeModal);
     closeButton.addEventListener("click", closeModal);
+}
+
+class Item {
+    constructor(id, title, content, publication_date) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.publication_date = publication_date;
+    }
+}
+
+class ResponseObject {
+    constructor() {
+        this.news = [];
+        this.page = 0;
+        this.countPage = 0;
+    }
 }

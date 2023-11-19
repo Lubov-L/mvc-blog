@@ -1,4 +1,4 @@
-INSERT INTO db.roles (name)
+INSERT INTO roles (name)
 VALUES ('admin'),
        ('user'),
        ('guest');

@@ -14,7 +14,7 @@ class MySQLConnect
     private function __construct()
     {
         try {
-            $this->pdo = new PDO("mysql:host=mysql-mvc-blog;dbname=db", "root", "local");
+            $this->pdo = new PDO("mysql:host=mysql-mvc-blog;dbname=mvc-blog", "root", "local");
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }

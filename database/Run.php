@@ -7,7 +7,7 @@ class Run
     public function __construct()
     {
         try {
-            $this->pdo = new PDO("mysql:host=mysql-mvc-blog;dbname=db", "root", "local");
+            $this->pdo = new PDO("mysql:host=mysql-mvc-blog;dbname=mvc-blog", "root", "local");
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
@@ -15,10 +15,12 @@ class Run
 
     private function createMigrationTable(): void
     {
-        $this->pdo->exec('CREATE TABLE IF NOT EXISTS migrations (
+        $this->pdo->exec(
+            'CREATE TABLE IF NOT EXISTS migrations (
                     id int NOT NULL AUTO_INCREMENT, 
                     migration_name varchar(255),
-                    PRIMARY KEY (id));');
+                    PRIMARY KEY (id));'
+        );
     }
 
     private function isMigrationExecuted($migrationName): bool
@@ -31,7 +33,7 @@ class Run
     /**
      * Функция для выполнения миграций
      */
-    function runMigrations(): void
+    public function runMigrations(): void
     {
         $migrationFolderPath = __DIR__ . '/migrations/';
 
@@ -70,7 +72,7 @@ class Run
     /**
      * Функция для выполнения seeds
      */
-    function runSeeds(string $name): void
+    public function runSeeds(string $name): void
     {
         $migrationFolderPath = __DIR__ . '/seeds/';
 

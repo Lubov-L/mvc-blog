@@ -1,6 +1,6 @@
 window.addEventListener("load", function () {
     const dashboardLink = document.getElementById("dashboard-link");
-    const usersLink = document.getElementById("users-link");
+    const userLink = document.getElementById("users-link");
     const dashboardBlock = document.querySelector(".dashboard");
     const usersBlock = document.querySelector(".users");
 
@@ -22,7 +22,7 @@ window.addEventListener("load", function () {
         localStorage.setItem("activeTab", "dashboard");
     });
 
-    usersLink.addEventListener("click", function (e) {
+    userLink.addEventListener("click", function (e) {
         e.preventDefault();
         dashboardBlock.style.display = "none";
         usersBlock.style.display = "flex";
