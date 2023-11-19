@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 services:
   nginx-mvc-blog:
@@ -9,11 +9,7 @@ services:
       - "81:80"
     volumes:
       - .:/var/www/
-      # конфигурация nginx
       - ./.docker/config/nginx/:/etc/nginx/conf.d/
-      # ssl
-      # - ./.docker/config/nginx/ssl/:/etc/nginx/ssl/
-      # логи
       - ./.docker/logs/nginx:/var/log/nginx/
     networks:
       - web-network-mvc-blog
@@ -36,10 +32,8 @@ services:
     ports:
       - "${MYSQL_PORT}:3306"
     volumes:
-      # логи
       - ./logs/mysql/:/var/logs/mysql
-      # храним базу локально
-      - ./.docker/database/mysql:/var/lib/mysql
+      - db-mvc-blog:/var/lib/mysql
     security_opt:
       - seccomp:unconfined
     environment:
@@ -50,13 +44,9 @@ services:
     networks:
       - web-network-mvc-blog
 
-#  redis-mvc-blog:
-#    container_name: redis-mvc-blog
-#    image: redis:7.0.5
-#    ports:
-#      - "6380:6379"
-#    networks:
-#      - web-network-mvc-blog
+volumes:
+  db-mvc-blog:
+    name: db-mvc-blog
 
 networks:
   web-network-mvc-blog:
